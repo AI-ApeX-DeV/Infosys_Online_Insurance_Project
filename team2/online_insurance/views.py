@@ -1,53 +1,34 @@
-from django.shortcuts import render,redirect
-from django.template import loader
-from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login,authenticate
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from .forms import CustomRegistrationForm, CustomLoginForm
+from django.contrib.auth import authenticate, login
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('login')  # Redirect to login page after successful registration
     else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+        form = CustomRegistrationForm()
+    return render(request, 'register.html', {'form': form})
 
 
 def user_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomLoginForm(request.POST)  # Pass POST data to the form
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None and user == request.user:
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
                 login(request, user)
-                return redirect('feedback')  # Redirect to home or another page
+                return redirect('feedback')  # Redirect to home page after successful login
     else:
-        form = AuthenticationForm()
+        form = CustomLoginForm()  # Create an empty form for GET requests
     return render(request, 'login.html', {'form': form})
+
+
 
 def feedback(request):
-    return render(request,'feedback.html')
-
-
-
-
-def user_login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('feedback')  # Replace 'home' with the name of your desired URL pattern
-    else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
-
-
-
-
-
-
+    return render (request,'feedback.html')
