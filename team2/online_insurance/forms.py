@@ -22,3 +22,4 @@ class CustomRegistrationForm(forms.Form):
 class CustomLoginForm(forms.Form):
     username = forms.CharField(label='Username', max_length=150)
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
