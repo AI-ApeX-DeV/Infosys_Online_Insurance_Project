@@ -3,6 +3,18 @@ from django.contrib.auth.models import User
 from .forms import CustomRegistrationForm, CustomLoginForm
 from django.contrib.auth import authenticate, login
 from django import forms
+import binascii
+def generate_short_hash(string):
+    # Calculate the CRC32 hash
+    crc32_hash = binascii.crc32(string.encode('utf-8'))
+
+    # Convert the hash to a positive integer
+    crc32_hash = crc32_hash & 0xffffffff
+
+    # Convert the hash to a 5-character hexadecimal string
+    short_hash = format(crc32_hash, 'x')[:5]
+
+    return short_hash
 
 def register(request):
     if request.method == 'POST':
@@ -11,8 +23,12 @@ def register(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
+
+            string=username+password
+            short_hash = generate_short_hash(string)
+
             # Create a new user object and save it
-            User.objects.create_user(username=username, email=email, password=password)
+            User.objects.create_user(username=username, email=email, password=short_hash)
             return redirect('login')  # Redirect to login page after successful registration
     else:
         form = CustomRegistrationForm()
@@ -26,7 +42,9 @@ def user_login(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
+            string=username+password
+            short_hash = generate_short_hash(string)
+            user = authenticate(request, username=username, password=short_hash)
             if user is not None:
                 login(request, user)
                 return redirect('feedback')  # Redirect to home page after successful login
