@@ -3,7 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registeration Form</title>
+    <title>Registration Form</title>
+    <style>
+        /* CSS styles directly within the HTML file */
+
+        /* Set background image */
+        body {
+            background-image: url('image.jpg'); /* Replace 'path_to_your_image.jpg' with the path to your image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the image */
+            font-family: Arial, sans-serif; /* Set a fallback font */
+        }
+
+        /* Style the form */
+        form {
+            margin: 20px auto;
+            padding: 20px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background color for better readability */
+            opacity: 0; /* Initially make form invisible */
+            transform: translateY(-20px); /* Move form up */
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Smooth transition */
+        }
+
+        /* Style the form elements */
+        input[type="text"],
+        input[type="password"],
+        button {
+            width: calc(100% - 20px); /* Adjusted for padding */
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc; /* Added border for inputs */
+            border-radius: 5px; /* Rounded corners for inputs */
+            transition: border-color 0.3s; /* Smooth transition for input border */
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #4CAF50; /* Highlight input border on focus */
+        }
+
+        /* Style the submit button */
+        button[type="submit"],
+        button[name="login"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s; /* Smooth transition for button background */
+        }
+
+        button[type="submit"]:hover,
+        button[name="login"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <form method="POST">
@@ -11,8 +70,21 @@
         {{ form.as_p }}
         <button type="submit">Register</button>
     </form>
-    <form action="{% url 'login' %}",method="get">
-        <button type="submit">Login</button>
+    <form action="{% url 'login' %}" method="get">
+        <button type="submit" name="login">Login</button>
     </form>
+
+    <script>
+        // JavaScript animations
+        document.addEventListener("DOMContentLoaded", function() {
+            var forms = document.querySelectorAll('form');
+            forms.forEach(function(form) {
+                setTimeout(function() {
+                    form.style.opacity = 1;
+                    form.style.transform = 'translateY(0)';
+                }, 100); // Delay animation for smoother effect
+            });
+        });
+    </script>
 </body>
 </html>
