@@ -30,6 +30,7 @@
 
         /* Style the form elements */
         input[type="text"],
+        input[type="email"],
         input[type="password"],
         button {
             width: calc(100% - 20px); /* Adjusted for padding */
@@ -42,6 +43,7 @@
         }
 
         input[type="text"]:focus,
+        input[type="email"]:focus,
         input[type="password"]:focus {
             border-color: #4CAF50; /* Highlight input border on focus */
         }
@@ -49,7 +51,7 @@
         /* Style the submit button */
         button[type="submit"],
         button[name="login"] {
-            width: 100%;
+            width: 50%;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -60,6 +62,9 @@
 
         button[type="submit"]:hover,
         button[name="login"]:hover {
+            display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; 
             background-color: #45a049;
         }
     </style>
