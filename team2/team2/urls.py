@@ -24,5 +24,7 @@ urlpatterns = [
     path('',views.register,name="Register"),
     path('login/',views.user_login,name="login"),
     path('feedback/',views.feedback,name="feedback"),
-    
+    path('agent/', views.set_availability, name="agent" ),
+    path('members/details/<int:id>', views.details, name='details'),
+    path('members/', views.members, name='members'),
 ]

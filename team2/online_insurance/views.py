@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import CustomRegistrationForm, CustomLoginForm
+from .forms import CustomRegistrationForm, CustomLoginForm, AgentRequest
 from django.contrib.auth import authenticate, login
 from django import forms
+from .models import AgentAvailability
 import binascii
+from django.http import HttpResponse
+from django.template import loader
+from .models import AgentAvailability
+
+
 def generate_short_hash(string):
     # Calculate the CRC32 hash
     crc32_hash = binascii.crc32(string.encode('utf-8'))
@@ -52,7 +58,40 @@ def user_login(request):
         form = CustomLoginForm()  # Create an empty form for GET requests
     return render(request, 'login.html', {'form': form})
 
+def set_availability(request):
+    if request.method == 'POST':
+        form = AgentRequest(request.POST)
+        if form.is_valid():
+            availability = form.save(commit=False)
+            availability.agent = request.user  # Assuming agents are authenticated users
+            availability.save()
+            return redirect('feedback')  # Redirect to a success page or home page
+    else:
+        form = AgentRequest()
+    return render(request, 'set_availability.html', {'form': form})
 
 
 def feedback(request):
     return render (request,'feedback.html')
+
+def agent_availability_view(request):
+    agent_availabilities = AgentAvailability.objects.all()
+
+    return render(request, 'all_agents.html', {'agent_availabilities': agent_availabilities}) 
+
+def members(request):
+  mymembers = AgentAvailability.objects.all()
+  template = loader.get_template('all_agents.html')
+  context = {
+    'mymembers': mymembers,
+  }
+  return HttpResponse(template.render(context, request))
+
+  
+def details(request, id):
+  mymember = AgentAvailability.objects.get(id=id)
+  template = loader.get_template('details.html')
+  context = {
+    'mymember': mymember,
+  }
+  return HttpResponse(template.render(context, request))
