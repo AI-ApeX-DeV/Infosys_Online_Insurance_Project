@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import CustomRegistrationForm, CustomLoginForm
+from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
@@ -94,4 +94,20 @@ def display_map(request):
     return render(request, 'map.html', {'district': '', 'map_html': '', 'error': ''})
 
 def feedback(request):
-    return render(request, 'feedback.html')
+    return render (request,'feedback.html')
+
+
+
+
+
+def set_availability(request):
+    if request.method == 'POST':
+        form = AgentRequest(request.POST)
+        if form.is_valid():
+            availability = form.save(commit=False)
+            availability.agent = request.user  # Assuming agents are authenticated users
+            availability.save()
+            return redirect('feedback')  # Redirect to a success page or home page
+    else:
+        form = AgentRequest()
+    return render(request, 'set_availability.html', {'form': form})

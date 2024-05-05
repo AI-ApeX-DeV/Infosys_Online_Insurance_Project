@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import AgentAvailability
 
 class CustomRegistrationForm(forms.Form):
     username = forms.CharField(label='Username', max_length=150)
@@ -22,4 +23,13 @@ class CustomRegistrationForm(forms.Form):
 class CustomLoginForm(forms.Form):
     username = forms.CharField(label='Username', max_length=150)
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
+class AgentRequest(forms.ModelForm):
+    class Meta:
+        model= AgentAvailability
+        fields=['agent','agent_phone','status','start_time','end_time']
+        widgets = {
+            'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
 

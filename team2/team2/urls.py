@@ -24,6 +24,10 @@ urlpatterns = [
     path('',views.register,name="Register"),
     path('login/',views.user_login,name="login"),
     path('feedback/',views.feedback,name="feedback"),
+<<<<<<< HEAD
     path('display_map/',views.display_map,name="display_map"),
     
+=======
+    path('agent/',views.set_availability,name="agent"),
+>>>>>>> ffa000ebe61807e2e85e7494a69011a4ddafc814
 ]
