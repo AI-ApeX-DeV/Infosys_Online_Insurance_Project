@@ -27,13 +27,11 @@ class CustomLoginForm(forms.Form):
 class AgentRequest(forms.ModelForm):
     class Meta:
         model= AgentAvailability
-        fields=['agent','agent_phone','status','start_time','end_time']
+        fields= '__all__'
         widgets = {
             'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> c46815c07918e406b1f30e8126e5dc0d9d390ab7
+
