@@ -24,16 +24,11 @@ urlpatterns = [
     path('',views.register,name="Register"),
     path('login/',views.user_login,name="login"),
     path('feedback/',views.feedback,name="feedback"),
-<<<<<<< HEAD
+# <<<<<<< HEAD
     path('agent/', views.set_availability, name="agent" ),
     path('members/details/<int:id>', views.details, name='details'),
     path('members/', views.members, name='members'),
-=======
-<<<<<<< HEAD
-    path('display_map/',views.display_map,name="display_map"),
-    
-=======
+# =======
     path('agent/',views.set_availability,name="agent"),
->>>>>>> ffa000ebe61807e2e85e7494a69011a4ddafc814
->>>>>>> c46815c07918e406b1f30e8126e5dc0d9d390ab7
+# >>>>>>> c46815c07918e406b1f30e8126e5dc0d9d390ab7
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-<<<<<<< HEAD
+# <<<<<<< HEAD
 from .forms import CustomRegistrationForm, CustomLoginForm, AgentRequest
 from django.contrib.auth import authenticate, login
 from django import forms
@@ -9,13 +9,13 @@ import binascii
 from django.http import HttpResponse
 from django.template import loader
 from .models import AgentAvailability
-=======
+# =======
 from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
 import folium
->>>>>>> c46815c07918e406b1f30e8126e5dc0d9d390ab7
+# >>>>>>> c46815c07918e406b1f30e8126e5dc0d9d390ab7
 
 
 def generate_short_hash(string):
@@ -60,7 +60,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=short_hash)
             if user is not None:
                 login(request, user)
-                return redirect('display_map')  # Redirect to feedback page after successful login
+                return redirect('feedback')  # Redirect to feedback page after successful login
     else:
         form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
@@ -118,7 +118,7 @@ def display_map(request):
 def feedback(request):
     return render (request,'feedback.html')
 
-<<<<<<< HEAD
+# <<<<<<< HEAD
 def agent_availability_view(request):
     agent_availabilities = AgentAvailability.objects.all()
 
@@ -140,7 +140,7 @@ def details(request, id):
     'mymember': mymember,
   }
   return HttpResponse(template.render(context, request))
-=======
+# =======
 
 
 
@@ -156,4 +156,4 @@ def set_availability(request):
     else:
         form = AgentRequest()
     return render(request, 'set_availability.html', {'form': form})
->>>>>>> c46815c07918e406b1f30e8126e5dc0d9d390ab7
+# >>>>>>> c46815c07918e406b1f30e8126e5dc0d9d390ab7
