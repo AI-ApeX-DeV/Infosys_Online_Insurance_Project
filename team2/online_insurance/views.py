@@ -96,8 +96,7 @@ def map(request):
                     <p style="margin: 0; margin-bottom: 5px; font-size: 16px;">Status: {agent_location.status}</p>
                     <p style="margin: 0; margin-bottom: 5px; font-size: 16px;">Start Time: {agent_location.start_time}</p>
                     <p style="margin: 0; margin-bottom: 5px; font-size: 16px;">End Time: {agent_location.end_time}</p>
-                    <p style="margin: 0; margin-bottom: 5px; font-size: 16px;">Latitude: {agent_location.lattitude}</p>
-                    <p style="margin: 0; margin-bottom: 5px; font-size: 16px;">Longitude: {agent_location.longitude}</p>
+                  
                 </div>
             </div>
             """
