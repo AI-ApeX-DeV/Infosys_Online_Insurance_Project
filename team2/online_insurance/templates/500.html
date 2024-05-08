@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {% for i in agents %}
+     
+     <table border="1">
+        
+            <h1><td><b>{{i.agent}}</b></h1></td></tr>
+            <tr><div><td>Status:{{ i.status }}</td></div></tr>
+            <tr><div><td>Phone:{{ i.agent_phone }}</td></div> </tr> 
+            <td><div>from {{ i.start_time }} to {{ i.end_time }}</div></td>
+            
+            <tr><td><p>Lattitude:{{i.lattitude}}</p></td></tr>
+            <tr><td><p> Longitude:{{i.longitude}}</p></td></tr>
+            
+    
+
+    {% endfor %}
+ 
+</body>
+</html>
