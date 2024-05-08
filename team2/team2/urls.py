@@ -21,6 +21,7 @@ from online_insurance import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('map/',views.map,name="map"),
     path('',views.register,name="Register"),
     path('login/',views.user_login,name="login"),
     path('feedback/',views.feedback,name="feedback"),
@@ -30,4 +31,5 @@ urlpatterns = [
     #path('agent/',views.set_availability,name="agent"),
     path('agent-update/',views.agentupdate,name="agent-update"),
     path('500/',views.agent,name="500"),
+   
 ]
