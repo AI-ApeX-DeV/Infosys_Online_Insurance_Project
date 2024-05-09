@@ -1,3 +1,11 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Home | My Website{% endblock %}
+
+{% block content %}
+
+<!-- Add home page content here -->
 <!-- agent.html -->
 {% load static %}
 <!DOCTYPE html>
@@ -6,11 +14,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agent Availability</title>
-    <link rel="stylesheet" href="{% static 'AgentPage_css.css' %}">
+    
 </head>
-<body>
+
+    
     <main>
-        <div class="container">
+        <div class="container home-section">
             <h1>Agent Availability</h1>
             <form id="agentForm" method="post">
                 {% csrf_token %}
@@ -20,5 +29,8 @@
         </div>
     </main>
     <!-- <script src="{% static 'script.js' %}"></script> -->
-</body>
+
 </html>
+
+{% endblock %}
+
