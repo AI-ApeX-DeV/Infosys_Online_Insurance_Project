@@ -11,7 +11,7 @@ class UserInfo(models.Model):
 
 class AgentAvailability(models.Model):
     #agent=models.ForeignKey(User,on_delete=models.CASCADE)
-    agent=models.CharField(max_length=100)
+    agent=models.CharField(max_length=100,default='Default Agent')
     agent_phone=models.IntegerField()
     status=models.CharField(max_length=20,choices=[('available','Available'),('unavailable','Unavailable')])
     start_time=models.DateTimeField()
