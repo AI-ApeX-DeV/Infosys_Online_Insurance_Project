@@ -54,7 +54,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=short_hash)
             if user is not None:
                 login(request, user)
-                return redirect('display_map')  # Redirect to feedback page after successful login
+                return redirect('map')  # Redirect to feedback page after successful login
     else:
         form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
