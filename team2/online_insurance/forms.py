@@ -33,5 +33,3 @@ class AgentRequest(forms.ModelForm):
             'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
 
-
-

@@ -57,7 +57,7 @@ class AgentAvailability(models.Model):
     longitude=models.FloatField()
 
     def __str__(self):
-        return f"{self.agent} {self.agent_phone} {self.agent_district} {self. status} {self.start_time} {self.end_time} {self.lattitude} {self.longitude} "
+        return f"{self.agent}"
     
 
 
