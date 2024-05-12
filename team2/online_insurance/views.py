@@ -1,21 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-from .forms import CustomRegistrationForm, CustomLoginForm, AgentRequest
-from django.contrib.auth import authenticate, login
-from django import forms
-from .models import AgentAvailability
-import binascii
-from django.http import HttpResponse
-from django.template import loader
-from .models import AgentAvailability
-=======
 from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
 import folium
->>>>>>> c46815c07918e406b1f30e8126e5dc0d9d390ab7
 
 
 def generate_short_hash(string):
@@ -60,7 +49,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=short_hash)
             if user is not None:
                 login(request, user)
-                return redirect('display_map')  # Redirect to feedback page after successful login
+                return redirect('Feedback')  # Redirect to feedback page after successful login
     else:
         form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
@@ -118,29 +107,6 @@ def display_map(request):
 def feedback(request):
     return render (request,'feedback.html')
 
-<<<<<<< HEAD
-def agent_availability_view(request):
-    agent_availabilities = AgentAvailability.objects.all()
-
-    return render(request, 'all_agents.html', {'agent_availabilities': agent_availabilities}) 
-
-def members(request):
-  mymembers = AgentAvailability.objects.all()
-  template = loader.get_template('all_agents.html')
-  context = {
-    'mymembers': mymembers,
-  }
-  return HttpResponse(template.render(context, request))
-
-  
-def details(request, id):
-  mymember = AgentAvailability.objects.get(id=id)
-  template = loader.get_template('details.html')
-  context = {
-    'mymember': mymember,
-  }
-  return HttpResponse(template.render(context, request))
-=======
 
 
 
@@ -156,4 +122,3 @@ def set_availability(request):
     else:
         form = AgentRequest()
     return render(request, 'set_availability.html', {'form': form})
->>>>>>> c46815c07918e406b1f30e8126e5dc0d9d390ab7

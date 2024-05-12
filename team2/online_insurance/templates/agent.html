@@ -6,12 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Agent Availability</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-       <button type="submit">Save Availability</button>
-    </form>
-
+    <div>
+        <form  method="POST" action="">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
 </body>
 </html>
