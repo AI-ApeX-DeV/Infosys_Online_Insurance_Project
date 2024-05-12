@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from online_insurance import views
-
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('map/',views.map,name="map"),
     path('',views.register,name="Register"),
     path('login/',views.user_login,name="login"),
     path('feedback/',views.feedback,name="feedback"),
@@ -30,4 +31,5 @@ urlpatterns = [
     #path('agent/',views.set_availability,name="agent"),
     path('agent-update/',views.agentupdate,name="agent-update"),
     path('500/',views.agent,name="500"),
+    # path('logout/',RedirectView.as_view(url='/admin/logout/'))
 ]

@@ -622,8 +622,8 @@ select#district:hover {
        <h1 class = "line">Enter a district name to view the Map:</h1>
         
        <!-- Form -->
-       <form action="/map" method="post">
-          
+       <form action="/map/" method="post">
+        {% csrf_token %}
           <div class="form-group">
             <label for="district" class="btn-label">Select a district:</label>
               <select id="district" name="district" required class="btn-select">
