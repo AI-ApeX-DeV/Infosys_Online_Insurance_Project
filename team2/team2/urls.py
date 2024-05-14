@@ -32,4 +32,5 @@ urlpatterns = [
     path('agent-update/',views.agentupdate,name="agent-update"),
     path('500/',views.agent,name="500"),
     # path('logout/',RedirectView.as_view(url='/admin/logout/'))
+    path('logout/',RedirectView.as_view(url='/admin/logout/'), name='logout')
 ]
