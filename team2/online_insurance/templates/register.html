@@ -23,6 +23,7 @@
         .container {
             display: flex;
             align-items: center;
+            justify-content: center; /* Center horizontally */
             width: 100%;
             max-width: 1200px;
         }
@@ -31,16 +32,17 @@
         .registration-block {
             flex: 1;
             padding: 30px;
-            max-width: 400px; /* Adjusted maximum width */
-            /* background-color: rgba(255, 255, 255, 0.8); Semi-transparent background color */
+            max-width: 300px; /* Adjusted maximum width */
+            background-color: rgba(255, 255, 255, 0); /* Transparent background */
             border-radius: 5px;
             box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+            border: 2px solid white; /* White border */
         }
 
         /* Heading */
         h2 {
             text-align: center;
-            color: #424242;
+            color: #40e4f9;
             margin-bottom: 20px;
         }
 
@@ -87,23 +89,30 @@
             background-size: cover;
             background-position: right;
             height: 100vh;
+            position: fixed; /* Ensure it covers the entire viewport */
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1; /* Send it to the back */
         }
 
         /* Login link */
         .login-link {
             text-align: center;
-            color: #757575;
+            color: #f8f6f6;
             margin-top: 20px;
         }
 
         .login-link a {
-            color: #4CAF50;
+            color: #33dbf9;
             text-decoration: none;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
+    <div class="background-image"></div>
     <div class="container">
         <div class="registration-block">
             <h2>Register for Insurance</h2>
@@ -118,7 +127,6 @@
                 Already have an account? <a href="{% url 'login' %}">Login</a>
             </div>
         </div>
-        <div class="background-image"></div>
     </div>
 </body>
 </html>
