@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import AgentAvailability
+from .models import AgentAvailability,Appointment
+
 
 class CustomRegistrationForm(forms.Form):
     username = forms.CharField(label='Username', max_length=150)
@@ -33,5 +34,12 @@ class AgentRequest(forms.ModelForm):
             'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
 
-
-
+class SetAppointment(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = '__all__'
+        widgets = {
+                'time_from': forms.TimeInput(attrs={'type': 'time'}),
+                'time_to': forms.TimeInput(attrs={'type': 'time'}),
+            }
+            

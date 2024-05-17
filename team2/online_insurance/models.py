@@ -11,7 +11,7 @@ class UserInfo(models.Model):
 
 class AgentAvailability(models.Model):
     #agent=models.ForeignKey(User,on_delete=models.CASCADE)
-    agent=models.CharField(max_length=100)
+    agent=models.CharField(max_length=100,default='Default Agent')
     agent_phone=models.IntegerField()
     agent_district = models.CharField(max_length=100, choices=[
         ('Ahmadnagar', 'Ahmadnagar'),
@@ -57,7 +57,19 @@ class AgentAvailability(models.Model):
     longitude=models.FloatField()
 
     def __str__(self):
-        return f"{self.agent} {self.agent_phone} {self.agent_district} {self. status} {self.start_time} {self.end_time} {self.lattitude} {self.longitude} "
+        return f"{self.agent}"
+    
+
+class Appointment(models.Model):
+    Name=models.ForeignKey(User,on_delete=models.CASCADE,null=False)
+    select_agent=models.ForeignKey(AgentAvailability,on_delete=models.CASCADE,null=False)
+    time_from = models.TimeField()
+    time_to = models.TimeField()
+    reason=models.TextField(null=False)
+   
+    def __str__(self):
+        return f"{self.Name}"
+
     
 
 
