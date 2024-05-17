@@ -39,6 +39,7 @@ class SetAppointment(forms.ModelForm):
         model = Appointment
         fields = '__all__'
         widgets = {
-            'select_time': forms.TimeInput(attrs={'type': 'time'}),
-        }
+                'time_from': forms.TimeInput(attrs={'type': 'time'}),
+                'time_to': forms.TimeInput(attrs={'type': 'time'}),
+            }
             

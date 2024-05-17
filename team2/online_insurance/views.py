@@ -55,7 +55,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=short_hash)
             if user is not None:
                 login(request, user)
-                return redirect("admin")  # Redirect to feedback page after successful login
+                return redirect("admin/")  # Redirect to feedback page after successful login
     else:
         form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
@@ -124,27 +124,7 @@ def agent_availability_view(request):
     agent_availabilities = AgentAvailability.objects.all()
 
 
-# def agent_availability_view(request):
-#     agent_availabilities = AgentAvailability.objects.all()
 
-#     return render(request, 'all_agents.html', {'agent_availabilities': agent_availabilities}) 
-
-# def members(request):
-#   mymembers = AgentAvailability.objects.all()
-#   template = loader.get_template('all_agents.html')
-#   context = {
-#     'mymembers': mymembers,
-#   }
-#   return HttpResponse(template.render(context, request))
-
-  
-# def details(request, id):
-#   mymember = AgentAvailability.objects.get(id=id)
-#   template = loader.get_template('details.html')
-#   context = {
-#     'mymember': mymember,
-#   }
-#   return HttpResponse(template.render(context, request))
 def agent(request):
     agents = AgentAvailability.objects.all()
     context={'agents':agents}

@@ -20,7 +20,7 @@ from online_insurance import views
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls,name="admin"),
+    path('login/admin', admin.site.urls,name="admin"),
     path('map/',views.map,name="map"),
     path('',views.register,name="Register"),
     path('login/',views.user_login,name="login"),
