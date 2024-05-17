@@ -214,12 +214,12 @@
     background: none;
   }
   .home-section {
-    position: relative;
-    background: #e4e9f7;
+    /* position: relative; */
+    /* background: #e4e9f7; */
     /* min-height: 100vh; */
-    top: 0;
-    left: 78px;
-    width: calc(100% - 78px);
+    /* top: 0; */
+    /* left: 78px; */
+    /* width: calc(100% - 78px); */
     transition: all 0.5s ease;
     z-index: 2;
   }

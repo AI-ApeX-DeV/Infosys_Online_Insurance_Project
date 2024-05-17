@@ -33,4 +33,7 @@ urlpatterns = [
     path('500/',views.agent,name="500"),
     # path('logout/',RedirectView.as_view(url='/admin/logout/'))
     path("appointment/",views.appointment,name="appointment"),
+    path('logout/',RedirectView.as_view(url='/admin/logout/'), name='logout')
     ]
+    
+
