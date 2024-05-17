@@ -60,4 +60,13 @@ class AgentAvailability(models.Model):
         return f"{self.agent}"
     
 
+class Appointment(models.Model):
+    User=models.ForeignKey(UserInfo,on_delete=models.CASCADE,null=False)
+    select_agent=models.ForeignKey(AgentAvailability,on_delete=models.CASCADE,null=False)
+    select_time=models.TimeField()
+    reason=models.TextField(null=False)
+
+
+    
+
 
