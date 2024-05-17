@@ -55,7 +55,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=short_hash)
             if user is not None:
                 login(request, user)
-                return redirect("admin/")  # Redirect to feedback page after successful login
+                return redirect("home/")  # Redirect to feedback page after successful login
     else:
         form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
@@ -114,12 +114,12 @@ def map(request):
     # If the request method is not 'POST', return the default map page
     return render(request, 'map.html', {'district': '', 'map_html': '', 'error': ''})
 
-
+def home(request):
+    return render (request,'aboutus.html')
 
 def feedback(request):
     return render (request,'feedback.html')
 
-# <<<<<<< HEAD
 def agent_availability_view(request):
     agent_availabilities = AgentAvailability.objects.all()
 

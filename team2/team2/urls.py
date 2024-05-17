@@ -25,6 +25,7 @@ urlpatterns = [
     path('',views.register,name="Register"),
     path('login/',views.user_login,name="login"),
     path('feedback/',views.feedback,name="feedback"),
+    path("login/home/",views.home,name="home"),
     #path('agent/', views.set_availability, name="agent" ),
     #path('members/details/<int:id>', views.details, name='details'),
     #path('members/', views.members, name='members'),
@@ -33,7 +34,9 @@ urlpatterns = [
     path('500/',views.agent,name="500"),
     # path('logout/',RedirectView.as_view(url='/admin/logout/'))
     path("appointment/",views.appointment,name="appointment"),
-    path('logout/',RedirectView.as_view(url='/admin/logout/'), name='logout')
+    path('logout/',views.user_login, name='logout')
+
+    
     ]
     
 
