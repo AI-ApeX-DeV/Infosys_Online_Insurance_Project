@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* CSS styles directly within the HTML file */
+
+        /* Set background image */
+        body {
+            background-image: url('https://www.bhmpics.com/downloads/insurance-Wallpapers/24.insureance_web-2.jpg');
+            background-size: cover;
+            background-position: right center; /* Adjusted position */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style the form */
+        form {
+            margin: 20px;
+            padding: 20px;
+            width: 300px; /* Adjusted width */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the form elements */
+        input[type="text"],
+        input[type="password"],
+        button {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            align-items: center;
+        }
+
+        /* Style the submit button */
+        button[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h2 style="text-align: center; color: #fdf8f8;">Login</h2>
+        <!-- Dynamic placeholders for form fields -->
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

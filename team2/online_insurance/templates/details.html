@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    {% for i in policy %}
+    <h1>{{ i.policy_name}} </h1>
+    <h2>{{ i.price }}</h2>
+
+    {% endfor %}
+
+
+<p>Back to <a href="/login/home/">home</a></p>
+
+</body>
+</html>
