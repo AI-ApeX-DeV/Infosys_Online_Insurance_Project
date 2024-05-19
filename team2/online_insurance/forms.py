@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import AgentAvailability,Appointment
+from .models import AgentAvailability,Appointment,Policy
 
 
 class CustomRegistrationForm(forms.Form):
@@ -43,3 +43,8 @@ class SetAppointment(forms.ModelForm):
                 'time_to': forms.TimeInput(attrs={'type': 'time'}),
             }
             
+class NewPolicy(forms.ModelForm):
+    class Meta:
+        model = Policy
+        fields = '__all__'
+        

@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import CustomRegistrationForm, CustomLoginForm, AgentRequest
 from django.contrib.auth import authenticate, login
 from django import forms
-from .models import AgentAvailability
+from .models import AgentAvailability,Policy
 from django.template import loader
-from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest,SetAppointment
+from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest,SetAppointment,NewPolicy
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
@@ -138,5 +137,19 @@ def appointment(request):
     context={'form':form}
     return render(request,'appointment.html',context)
 
+def PolicyUpdate(request):
+    form=NewPolicy()
+    if request.method == 'POST':
+        form = NewPolicy(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect("details")
+    context = {'form': form }
+    return render(request,'policy.html',context)
+
+def details(request):
+    policy=Policy.objects.all()
+    context={"policy":policy}
+    return render(request,"details.html",context)
 
 

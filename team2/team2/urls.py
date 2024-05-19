@@ -34,7 +34,9 @@ urlpatterns = [
     path('500/',views.agent,name="500"),
     # path('logout/',RedirectView.as_view(url='/admin/logout/'))
     path("appointment/",views.appointment,name="appointment"),
-    path('logout/',views.user_login, name='logout')
+    path('logout/',views.user_login, name='logout'),
+    path("policy/",views.PolicyUpdate,name="policy"),
+    path("policy/details",views.details,name="details"),
 
     
     ]

@@ -3,13 +3,14 @@
 
 <body>
 
-<h1>{{ mymember.agent.username }} </h1>
-  
-<p>Phone: {{ mymember.agent_phone }}</p>
-<p>Member since: {{ mymember.start_time }}</p>
-<p>Member since: {{ mymember.end_time }}</p>
+    {% for i in policy %}
+    <h1>{{ i.policy_name}} </h1>
+    <h2>{{ i.price }}</h2>
 
-<p>Back to <a href="/members">Members</a></p>
+    {% endfor %}
+
+
+<p>Back to <a href="/login/home/">home</a></p>
 
 </body>
 </html>
