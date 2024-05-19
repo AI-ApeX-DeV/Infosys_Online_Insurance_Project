@@ -72,4 +72,9 @@ class Appointment(models.Model):
 
     
 
+class Policy(models.Model):
+    policy_name=models.CharField(max_length=200)
+    price=models.IntegerField()
 
+    def __str__(self):
+        return f"name - {self.policy_name}    price - {self.price}"
