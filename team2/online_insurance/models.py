@@ -11,7 +11,7 @@ class UserInfo(models.Model):
 
 class AgentAvailability(models.Model):
     #agent=models.ForeignKey(User,on_delete=models.CASCADE)
-    agent=models.CharField(max_length=100,default='Default Agent')
+    agent=models.CharField(max_length=100)
     agent_phone=models.IntegerField()
     agent_district = models.CharField(max_length=100, choices=[
         ('Ahmadnagar', 'Ahmadnagar'),

@@ -60,18 +60,6 @@ def user_login(request):
         form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
 
-# def set_availability(request):
-#     if request.method == 'POST':
-#         form = AgentRequest(request.POST)
-#         if form.is_valid():
-#             availability = form.save(commit=False)
-#             availability.agent = request.user  # Assuming agents are authenticated users
-#             availability.save()
-#             return redirect('feedback')  # Redirect to a success page or home page
-#     else:
-#         form = AgentRequest()
-#     return render(request, 'set_availability.html', {'form': form})
-
 
 
 def map(request):
@@ -146,7 +134,7 @@ def appointment(request):
         form = SetAppointment(request.POST)
         if form.is_valid:
             form.save()
-            return redirect('admin')
+            return redirect('/admin/')
     context={'form':form}
     return render(request,'appointment.html',context)
 
