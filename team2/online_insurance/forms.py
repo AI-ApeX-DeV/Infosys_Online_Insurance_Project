@@ -30,8 +30,14 @@ class AgentRequest(forms.ModelForm):
         model= AgentAvailability
         fields= '__all__'
         widgets = {
-            'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-            'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'agent': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'agent_phone': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'agent_district': forms.Select(attrs={'class': 'form-control', 'required': True}),'style': 'background-color: transparent;',
+            'status': forms.Select(attrs={'class': 'form-control', 'required': True}),
+            'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control', 'required': True}),
+            'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control', 'required': True}),
+            'latitude': forms.NumberInput(attrs={'class': 'form-control', 'required': True}),
+            'longitude': forms.NumberInput(attrs={'class': 'form-control', 'required': True}),
         }
 
 class SetAppointment(forms.ModelForm):
