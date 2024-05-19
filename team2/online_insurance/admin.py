@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import AgentAvailability,Appointment,Policy
-# Register your models here.
+# Register your models here
 
 admin.site.register(AgentAvailability)
 admin.site.register(Appointment)
