@@ -1,12 +1,8 @@
-
 {% extends 'base.html' %}
 
 {% block title %}Home | My Website{% endblock %}
 
 {% block content %}
-
-<!-- Add home page content here -->
-<!-- agent.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -25,10 +21,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 108vh;
+            height: 100vh;
             background: url('https://content.backgroundsonline.com/images/sites/bgo/industry/insurance.png') no-repeat;
             background-size: cover;
             background-position: center;
+            /* overflow: hidden; */
         }
 
         .wrapper {
@@ -47,22 +44,27 @@
 
         .form-box {
             width: 100%;
-            padding: 20px;
+            padding: -20px 0px -20px 0px;
+            
         }
 
         .form-box h2 {
             font-size: 2em;
             color: #162938;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
-
+        .form-control {
+    background-color: transparent;
+    border: 2px solid #2e2d2d;  /* Optional: Add border if needed */
+    color: #000;  /* Optional: Set text color */
+}
         .input-box {
             position: relative;
             width: 100%;
             height: 50px;
             border-bottom: 2px solid #162938;
-            margin-bottom: 15px;
+           
         }
 
         .input-box label {
@@ -115,37 +117,55 @@
             <h2>Agent Availability</h2>
             <form method="POST" action="">
                 {% csrf_token %}
-                <div class="input-box">
-                    <input type="text" name="agent_name" required>
-                    <label>Agent:</label>
+                <div >
+                    {{ form.agent.label_tag }} 
+                    <div class="input-box">
+                        {{ form.agent }}
+                     </div>
                 </div>
-                <div class="input-box">
-                    <input type="text" name="agent_phone" required>
-                    <label>Agent phone:</label>
+                <div >
+                    {{ form.agent_phone.label_tag }}
+                    <div class="input-box" >
+                        {{ form.agent_phone }}
+                    </div>
                 </div>
-                <div class="input-box">
-                    <input type="text" name="agent_district" required>
-                    <label>Agent district:</label>
+               
+                <div >
+                    {{ form.agent_district.label_tag }} 
+                    <div class="input-box">
+                        {{ form.agent_district }}
+                   </div>
                 </div>
-                <div class="input-box">
-                    <input type="text" name="status" required>
-                    <label>Status:</label>
+              
+                <div >
+                    {{ form.status.label_tag }} 
+                    <div class="input-box">
+                        {{ form.status }}
+                    </div>
                 </div>
-                <div class="input-box">
-                    <input type="datetime-local" id="datetime" name="datetime">
-                    <label>Start time:</label>
+                <div class="">
+                    {{ form.start_time.label_tag }} 
+                    <div class="input-box">
+                        {{ form.start_time }}
+                    </div>
                 </div>
-                <div class="input-box">
-                    <input type="datetime-local" id="datetime" name="datetime">
-                    <label>End time:</label>
+                <div class="">
+                    {{ form.end_time.label_tag }} 
+                    <div class="input-box">
+                        {{ form.end_time }}
+                    </div>
                 </div>
-                <div class="input-box">
-                    <input type="text" name="latitude" required>
-                    <label>Lattitude:</label>
+                <div >
+                    {{ form.lattitude.label_tag }}
+                    <div class="input-box">
+                         {{ form.lattitude }}
+                    </div>
                 </div>
-                <div class="input-box">
-                    <input type="text" name="longitude" required>
-                    <label>Longitude:</label>
+                <div >
+                    {{ form.longitude.label_tag }} 
+                    <div class="input-box" >
+                       {{ form.longitude }}
+                    </div>
                 </div>
                 <input type="submit" class="btn" value="Submit" />
             </form>
