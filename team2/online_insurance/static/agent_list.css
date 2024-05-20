@@ -1,0 +1,77 @@
+/* static/css/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #11101d;
+    color: #e4e4e7;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #11101d;
+}
+
+h1 {
+    text-align: center;
+    color: #e4e4e7;
+}
+
+.filter-container {
+    text-align: center;
+    margin-bottom: 20px;
+    width: 300px;  /* Set a specific width for the filter container */
+    margin: 0 auto;
+}
+
+.filter-container label {
+    color: #e4e4e7;
+}
+
+.filter-container select {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #1f1e2e;
+    color: #e4e4e7;
+    border: 1px solid #444;
+    border-radius: 4px;
+    width: 150px;
+    margin-left: 20px;
+}
+
+.agent-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.agent-card {
+    background-color: #1f1e2e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.agent-card:hover {
+    transform: translateY(-10px);
+}
+
+.agent-card h2 {
+    margin-top: 0;
+    color: #e4e4e7;
+}
+
+.agent-card p {
+    margin: 10px 0;
+    color: #cfcfd3;
+}
+
+.agent-card p strong {
+    color: #e4e4e7;
+}

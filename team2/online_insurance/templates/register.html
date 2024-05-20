@@ -9,87 +9,124 @@
 
         /* Set background image */
         body {
-            background-image: url('image.jpg'); /* Replace 'path_to_your_image.jpg' with the path to your image */
-            background-size: cover; /* Cover the entire viewport */
-            background-position: center; /* Center the image */
-            font-family: Arial, sans-serif; /* Set a fallback font */
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Style the form */
-        form {
-            margin: 20px auto;
-            padding: 20px;
-            width: 300px;
-            border: 1px solid #ccc;
+        /* Main container */
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center horizontally */
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Left side - Registration block */
+        .registration-block {
+            flex: 1;
+            padding: 30px;
+            max-width: 300px; /* Adjusted maximum width */
+            background-color: rgba(255, 255, 255, 0); /* Transparent background */
             border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background color for better readability */
-            opacity: 0; /* Initially make form invisible */
-            transform: translateY(-20px); /* Move form up */
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Smooth transition */
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+            border: 2px solid white; /* White border */
         }
 
-        /* Style the form elements */
+        /* Heading */
+        h2 {
+            text-align: center;
+            color: #40e4f9;
+            margin-bottom: 20px;
+        }
+
+        /* Form */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Form inputs */
         input[type="text"],
         input[type="email"],
         input[type="password"],
-        button {
-            width: calc(100% - 20px); /* Adjusted for padding */
-            margin-bottom: 10px;
-            padding: 10px;
+        input[type="submit"] {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
             box-sizing: border-box;
-            border: 1px solid #ccc; /* Added border for inputs */
-            border-radius: 5px; /* Rounded corners for inputs */
-            transition: border-color 0.3s; /* Smooth transition for input border */
         }
 
+        /* Form inputs focus */
         input[type="text"]:focus,
         input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: #4CAF50; /* Highlight input border on focus */
+        input[type="password"]:focus,
+        input[type="submit"]:hover {
+            border-color: #1f1f96;
         }
 
-        /* Style the submit button */
-        button[type="submit"],
-        button[name="login"] {
-            width: 50%;
+        /* Submit button */
+        input[type="submit"] {
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s; /* Smooth transition for button background */
         }
 
-        button[type="submit"]:hover,
-        button[name="login"]:hover {
-            display: flex;
-            justify-content: center; /* Horizontally center */
-            align-items: center; 
-            background-color: #45a049;
+        /* Right side - Background image */
+        .background-image {
+            flex: 1;
+            background-image: url('https://www.bhmpics.com/downloads/insurance-Wallpapers/24.insureance_web-2.jpg');
+            background-size: cover;
+            background-position: right;
+            height: 100vh;
+            position: fixed; /* Ensure it covers the entire viewport */
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1; /* Send it to the back */
+        }
+
+        /* Login link */
+        .login-link {
+            text-align: center;
+            color: #f8f6f6;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #33dbf9;
+            text-decoration: none;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-    <form action="{% url 'login' %}" method="get">
-        <button type="submit" name="login">Login</button>
-    </form>
-
-    <script>
-        // JavaScript animations
-        document.addEventListener("DOMContentLoaded", function() {
-            var forms = document.querySelectorAll('form');
-            forms.forEach(function(form) {
-                setTimeout(function() {
-                    form.style.opacity = 1;
-                    form.style.transform = 'translateY(0)';
-                }, 100); // Delay animation for smoother effect okk
-            });
-        });
-    </script>
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="registration-block">
+            <h2>Register for Insurance</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="submit" value="Register">
+            </form>
+            <div class="login-link">
+                Already have an account? <a href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

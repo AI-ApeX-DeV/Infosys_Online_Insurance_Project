@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from .forms import CustomRegistrationForm, CustomLoginForm, AgentRequest
 from django.contrib.auth import authenticate, login
 from django import forms
-from .models import AgentAvailability
+from .models import AgentAvailability,Policy
 from django.template import loader
-from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest
+from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest,SetAppointment,NewPolicy
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
 import folium
+
 
 
 def generate_short_hash(string):
@@ -37,7 +37,7 @@ def register(request):
 
             # Create a new user object and save it
             User.objects.create_user(username=username, email=email, password=short_hash)
-            return redirect('login')  # Redirect to login page after successful registration
+            return redirect("login")  # Redirect to login page after successful registration
     else:
         form = CustomRegistrationForm()
     return render(request, 'register.html', {'form': form})
@@ -54,22 +54,13 @@ def user_login(request):
             user = authenticate(request, username=username, password=short_hash)
             if user is not None:
                 login(request, user)
-                return redirect('map')  # Redirect to feedback page after successful login
+                return redirect("home/")  # Redirect to feedback page after successful login
     else:
         form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
 
-# def set_availability(request):
-#     if request.method == 'POST':
-#         form = AgentRequest(request.POST)
-#         if form.is_valid():
-#             availability = form.save(commit=False)
-#             availability.agent = request.user  # Assuming agents are authenticated users
-#             availability.save()
-#             return redirect('feedback')  # Redirect to a success page or home page
-#     else:
-#         form = AgentRequest()
-#     return render(request, 'set_availability.html', {'form': form})
+
+
 def map(request):
     if request.method == 'POST':
         district = request.POST.get('district').strip()
@@ -110,33 +101,17 @@ def map(request):
     # If the request method is not 'POST', return the default map page
     return render(request, 'map.html', {'district': '', 'map_html': '', 'error': ''})
 
+def home(request):
+    return render (request,'aboutus.html')
 
 def feedback(request):
     return render (request,'feedback.html')
 
+def agent_availability_view(request):
+    agent_availabilities = AgentAvailability.objects.all()
 
 
-# def agent_availability_view(request):
-#     agent_availabilities = AgentAvailability.objects.all()
 
-#     return render(request, 'all_agents.html', {'agent_availabilities': agent_availabilities}) 
-
-# def members(request):
-#   mymembers = AgentAvailability.objects.all()
-#   template = loader.get_template('all_agents.html')
-#   context = {
-#     'mymembers': mymembers,
-#   }
-#   return HttpResponse(template.render(context, request))
-
-  
-# def details(request, id):
-#   mymember = AgentAvailability.objects.get(id=id)
-#   template = loader.get_template('details.html')
-#   context = {
-#     'mymember': mymember,
-#   }
-#   return HttpResponse(template.render(context, request))
 def agent(request):
     agents = AgentAvailability.objects.all()
     context={'agents':agents}
@@ -152,16 +127,29 @@ def agentupdate(request):
     context={'form':form}
     return render(request,'agent.html',context)
 
-
-
-def set_availability(request):
+def appointment(request):
+    form = SetAppointment()
     if request.method == 'POST':
-        form = AgentRequest(request.POST)
-        if form.is_valid():
-            availability = form.save(commit=False)
-            availability.agent = request.user  # Assuming agents are authenticated users
-            availability.save()
-            return redirect('feedback')  # Redirect to a success page or home page
-    else:
-        form = AgentRequest()
-    return render(request, 'set_availability.html', {'form': form})
+        form = SetAppointment(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('/admin/')
+    context={'form':form}
+    return render(request,'appointment.html',context)
+
+def PolicyUpdate(request):
+    form=NewPolicy()
+    if request.method == 'POST':
+        form = NewPolicy(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect("details")
+    context = {'form': form }
+    return render(request,'policy.html',context)
+
+def details(request):
+    policy=Policy.objects.all()
+    context={"policy":policy}
+    return render(request,"details.html",context)
+
+

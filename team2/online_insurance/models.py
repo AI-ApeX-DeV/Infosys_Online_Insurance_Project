@@ -11,7 +11,7 @@ class UserInfo(models.Model):
 
 class AgentAvailability(models.Model):
     #agent=models.ForeignKey(User,on_delete=models.CASCADE)
-    agent=models.CharField(max_length=100)
+    agent=models.CharField(max_length=100,default='')
     agent_phone=models.IntegerField()
     agent_district = models.CharField(max_length=100, choices=[
         ('Ahmadnagar', 'Ahmadnagar'),
@@ -49,8 +49,8 @@ class AgentAvailability(models.Model):
         ('Wardha', 'Wardha'),
         ('Washim', 'Washim'),
         ('Yavatmal', 'Yavatmal'),
-    ])
-    status=models.CharField(max_length=20,choices=[('available','Available'),('unavailable','Unavailable')])
+    ],verbose_name='District')
+    status=models.CharField(max_length=20,choices=[('available','Available'),('unavailable','Unavailable')],verbose_name='Status')
     start_time=models.DateTimeField()
     end_time=models.DateTimeField()
     lattitude=models.FloatField()
@@ -60,4 +60,21 @@ class AgentAvailability(models.Model):
         return f"{self.agent}"
     
 
+class Appointment(models.Model):
+    Name=models.ForeignKey(User,on_delete=models.CASCADE,null=False)
+    select_agent=models.ForeignKey(AgentAvailability,on_delete=models.CASCADE,null=False)
+    time_from = models.TimeField()
+    time_to = models.TimeField()
+    reason=models.TextField(null=False)
+   
+    def __str__(self):
+        return f"{self.Name}"
 
+    
+
+class Policy(models.Model):
+    policy_name=models.CharField(max_length=200)
+    price=models.IntegerField()
+
+    def __str__(self):
+        return f"name - {self.policy_name}    price - {self.price}"
