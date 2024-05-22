@@ -24,8 +24,8 @@
             display: flex;
             align-items: center;
             justify-content: center; /* Center horizontally */
-            width: 100%;
-            max-width: 1200px;
+            width: 70%;
+            max-width: 900px;
         }
 
         /* Left side - Registration block */
@@ -36,7 +36,7 @@
             background-color: rgba(255, 255, 255, 0); /* Transparent background */
             border-radius: 5px;
             box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-            border: 2px solid white; /* White border */
+            border: 1px solid white; /* White border */
         }
 
         /* Heading */
@@ -76,7 +76,7 @@
 
         /* Submit button */
         input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #0056b3;
             color: white;
             border: none;
             cursor: pointer;
@@ -115,12 +115,12 @@
     <div class="background-image"></div>
     <div class="container">
         <div class="registration-block">
-            <h2>Register for Insurance</h2>
+            <h2>Register</h2>
             <form method="POST">
                 {% csrf_token %}
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="text" name="username" required>
+                <input type="email" name="email" required>
+                <input type="password" name="password" required>
                 <input type="submit" value="Register">
             </form>
             <div class="login-link">
