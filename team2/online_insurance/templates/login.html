@@ -9,7 +9,7 @@
 
         /* Set background image */
         body {
-            background-image: url('https://www.bhmpics.com/downloads/insurance-Wallpapers/24.insureance_web-2.jpg');
+            background-image: url('https://www.lionandmason.com/wp-content/uploads/2023/02/pexels-kindel-media-7688374.jpg.webp');
             background-size: cover;
             background-position: right center; /* Adjusted position */
             font-family: Arial, sans-serif;
@@ -29,6 +29,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8); /* Translucent background */
         }
 
         /* Style the form elements */
@@ -43,7 +44,6 @@
             border-radius: 5px;
             font-size: 16px;
             transition: border-color 0.3s;
-            align-items: center;
         }
 
         /* Style the submit button */
@@ -58,12 +58,19 @@
         button[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        /* Style the form heading */
+        h2 {
+            text-align: center;
+            color: #333; /* Darker text color for contrast */
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <form method="post">
         {% csrf_token %}
-        <h2 style="text-align: center; color: #fdf8f8;">Login</h2>
+        <h2>Login</h2>
         <!-- Dynamic placeholders for form fields -->
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
