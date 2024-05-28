@@ -178,16 +178,15 @@
                 const district = districtInput.value;
 
                 if (district) {
-                    const apiKey = 'd2cb2aa797364fe5a02993f2fd9abe18';
-                    const url = `https://api.opencagedata.com/geocode/v1/json?q=${district}+Maharashtra+India&key=${apiKey}`;
+                    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${district}+Maharashtra+India`;
 
                     fetch(url)
                         .then(response => response.json())
                         .then(data => {
-                            if (data.results.length > 0) {
-                                const { lat, lng } = data.results[0].geometry;
+                            if (data.length > 0) {
+                                const { lat, lon } = data[0];
                                 latitudeInput.value = lat;
-                                longitudeInput.value = lng;
+                                longitudeInput.value = lon;
                             } else {
                                 alert('Coordinates not found for this district.');
                             }
@@ -201,5 +200,4 @@
     </script>
 </body>
 </html>
-
 {% endblock %}
