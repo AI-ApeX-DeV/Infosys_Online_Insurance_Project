@@ -1,3 +1,10 @@
+<!-- <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+   
+    <button type="submit">Register</button>
+</form> -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,6 +119,13 @@
     </style>
 </head>
 <body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <div class="background-image"></div>
     <div class="container">
         <div class="registration-block">
@@ -119,7 +133,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <input type="text" name="username" placeholder="Username" required>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Email" required>            
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="submit" value="Register">
             </form>
@@ -130,3 +144,5 @@
     </div>
 </body>
 </html>
+           
+

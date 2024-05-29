@@ -2,27 +2,25 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django import forms
-from .models import AgentAvailability,Policy
+from .models import AgentAvailability,Policy,UserProfile
 from django.template import loader
-from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest,SetAppointment,NewPolicy
+from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest,SetAppointment,NewPolicy,PasswordResetForm,PasswordResetRequestForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
 import folium
+import pyotp
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
+from django.core.mail import EmailMessage
+import random
+from channels.layers import get_channel_layer
+import json
+from asgiref.sync import async_to_sync
+from django.utils import timezone
+from datetime import timedelta
 
-
-
-def generate_short_hash(string):
-    # Calculate the CRC32 hash
-    crc32_hash = binascii.crc32(string.encode('utf-8'))
-
-    # Convert the hash to a positive integer
-    crc32_hash = crc32_hash & 0xffffffff
-
-    # Convert the hash to a 5-character hexadecimal string
-    short_hash = format(crc32_hash, 'x')[:5]
-
-    return short_hash
 
 def register(request):
     if request.method == 'POST':
@@ -32,11 +30,10 @@ def register(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            string = username + password
-            short_hash = generate_short_hash(string)
-
-            # Create a new user object and save it
-            User.objects.create_user(username=username, email=email, password=short_hash)
+            # Create a new user object and set the password securely
+            user = User(username=username, email=email)
+            user.set_password(password)
+            user.save()
             return redirect("login")  # Redirect to login page after successful registration
     else:
         form = CustomRegistrationForm()
@@ -49,16 +46,77 @@ def user_login(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
-            string = username + password
-            short_hash = generate_short_hash(string)
-            user = authenticate(request, username=username, password=short_hash)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect("home/")  # Redirect to feedback page after successful login
+            else:
+                messages.error(request, 'Invalid username or password.')
     else:
         form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
 
+
+
+def send_otp(email, otp):
+    subject = 'Your OTP for Password-Reset'
+    message = f'Your OTP for completing the Password-reset is {otp}. This OTP is valid for only 10 minutes,Please use this to verify your account and change the password.'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient_list = [email]
+    email = EmailMessage(subject, message, from_email, recipient_list)
+    email.send()
+    
+
+def password_reset_request_view(request):
+    if request.method == 'POST':
+        form = PasswordResetRequestForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            try:
+                user = User.objects.get(email=email)
+                otp = random.randint(100000, 999999)
+                send_otp(email, otp)
+                request.session['otp'] = otp
+                request.session['user_email'] = email
+                return redirect('password_reset_verify_otp')
+            except User.DoesNotExist:
+                messages.error(request, 'No user is associated with this email address.')
+    else:
+        form = PasswordResetRequestForm()
+    return render(request, 'password_reset_request.html', {'form': form})
+
+def password_reset_verify_otp(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            otp_entered = form.cleaned_data['otp']
+            new_password = form.cleaned_data['new_password']
+            otp = request.session.get('otp')
+            
+            email = request.session.get('user_email')
+
+            
+            if otp and email :
+
+                if str(otp) == str(otp_entered):  # Compare both as strings for consistency
+                    try:
+                        user = User.objects.get(email=email)
+                        user.set_password(new_password)
+                        user.save()
+                        del request.session['otp']
+                        del request.session['user_email']
+                        messages.success(request, 'Your password has been reset successfully.')
+                        return redirect('login')
+                    except User.DoesNotExist:
+                        messages.error(request, 'No user is associated with this email address.')
+                else:
+                    messages.error(request, 'Invalid OTP. Please try again.')
+            else:
+                messages.error(request, 'Session expired or invalid. Please request a new OTP.')
+                return redirect('password_reset_request')
+    else:
+        form = PasswordResetForm()
+    return render(request, 'password_reset_verify_otp.html', {'form': form})
 
 
 def map(request):
@@ -153,3 +211,21 @@ def details(request):
     return render(request,"details.html",context)
 
 
+from django.template import RequestContext
+def home1(request):
+    #add your html
+    return render(request, 'online_insurace/index.html', {
+        'room_name': "broadcast"
+    })
+
+
+def test(request):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        "notification_broadcast",
+        {
+            'type': 'send_notification',
+            'message': json.dumps("Notification")
+        }
+    )
+    return HttpResponse("Done")

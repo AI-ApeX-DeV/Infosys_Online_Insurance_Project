@@ -7,6 +7,7 @@ class CustomRegistrationForm(forms.Form):
     username = forms.CharField(label='Username', max_length=150)
     email = forms.EmailField(label='Email')
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -54,3 +55,12 @@ class NewPolicy(forms.ModelForm):
         model = Policy
         fields = '__all__'
         
+
+# from django import forms
+
+class PasswordResetRequestForm(forms.Form):
+    email = forms.EmailField(label="Enter your email")
+
+class PasswordResetForm(forms.Form):
+    otp = forms.IntegerField(label="Enter OTP")
+    new_password = forms.CharField(widget=forms.PasswordInput, label="New Password")
