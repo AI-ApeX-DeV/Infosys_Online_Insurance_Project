@@ -9,7 +9,6 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
 import folium
-<<<<<<< HEAD
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from django.views.generic import TemplateView
@@ -38,7 +37,6 @@ def generate_short_hash(string):
 
     return short_hash
 
-=======
 import pyotp
 from django.core.mail import send_mail
 from django.conf import settings
@@ -52,7 +50,6 @@ from django.utils import timezone
 from datetime import timedelta
 
 
->>>>>>> 1f937d421d20b6d2761b6549d813601cbde6afa2
 def register(request):
     if request.method == 'POST':
         form = CustomRegistrationForm(request.POST)
