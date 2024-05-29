@@ -46,6 +46,10 @@ class UserInfo(models.Model):
     mail=models.EmailField()
     password=models.CharField(max_length=200)
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    otp_secret = models.CharField(max_length=32, blank=True, null=True)
+
 class AgentAvailability(models.Model):
     #agent=models.ForeignKey(User,on_delete=models.CASCADE)
     agent=models.CharField(max_length=100,default='')

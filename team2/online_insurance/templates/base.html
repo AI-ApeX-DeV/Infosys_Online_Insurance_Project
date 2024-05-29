@@ -8,6 +8,13 @@
 </head>
 <body>
     {% include 'SideBar.html' %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
         {% block content %}
    <!-- Content of the specific page goes here -->

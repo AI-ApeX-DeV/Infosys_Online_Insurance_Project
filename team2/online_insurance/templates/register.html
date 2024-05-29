@@ -1,3 +1,10 @@
+<!-- <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+   
+    <button type="submit">Register</button>
+</form> -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +40,7 @@
             flex: 1;
             padding: 30px;
             max-width: 300px; /* Adjusted maximum width */
-            background-color: rgba(255, 255, 255, 0); /* Transparent background */
+            background-color: rgba(255, 255, 255, 0.8); /* Translucent background */
             border-radius: 5px;
             box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
             border: 2px solid white; /* White border */
@@ -42,7 +49,7 @@
         /* Heading */
         h2 {
             text-align: center;
-            color: #40e4f9;
+            color: #104148;
             margin-bottom: 20px;
         }
 
@@ -85,7 +92,7 @@
         /* Right side - Background image */
         .background-image {
             flex: 1;
-            background-image: url('https://www.bhmpics.com/downloads/insurance-Wallpapers/24.insureance_web-2.jpg');
+            background-image: url('https://www.lionandmason.com/wp-content/uploads/2023/02/pexels-kindel-media-7688374.jpg.webp');
             background-size: cover;
             background-position: right;
             height: 100vh;
@@ -105,13 +112,20 @@
         }
 
         .login-link a {
-            color: #33dbf9;
+            color: #104148;
             text-decoration: none;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <div class="background-image"></div>
     <div class="container">
         <div class="registration-block">
@@ -119,7 +133,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <input type="text" name="username" placeholder="Username" required>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Email" required>            
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="submit" value="Register">
             </form>
@@ -130,3 +144,5 @@
     </div>
 </body>
 </html>
+           
+
