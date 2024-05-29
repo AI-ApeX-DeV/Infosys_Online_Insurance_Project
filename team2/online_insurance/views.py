@@ -9,8 +9,21 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
 import folium
+from pymongo import MongoClient
+from pymongo.server_api import ServerApi
+from django.views.generic import TemplateView
+from django.contrib import messages
+
+uri = "mongodb+srv://syed:BMmkQtHjyzPLRyYE@cluster0.yb37t1h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi('1'))
+client = MongoClient(uri)
+db = client['infosys']
+agent_availability_collection = db['agent_availability']
 
 
+class ErrorPageView(TemplateView):
+    template_name = 'error_page.html'
 
 def generate_short_hash(string):
     # Calculate the CRC32 hash
@@ -127,15 +140,20 @@ def agentupdate(request):
     context={'form':form}
     return render(request,'agent.html',context)
 
+
 def appointment(request):
     form = SetAppointment()
-    if request.method == 'POST':
-        form = SetAppointment(request.POST)
-        if form.is_valid:
-            form.save()
-            return redirect('/admin/')
-    context={'form':form}
-    return render(request,'appointment.html',context)
+    try:
+        if request.method == 'POST':
+            form = SetAppointment(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/admin/')
+        context = {'form': form}
+        return render(request, 'appointment.html', context)
+    except Exception as e:
+        messages.error(request, "The time slot is already booked for the agent or not available")
+        return render(request, 'appointment.html', {'form': form})
 
 def PolicyUpdate(request):
     form=NewPolicy()

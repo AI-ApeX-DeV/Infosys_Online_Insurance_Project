@@ -1,5 +1,42 @@
 from django.db import models
 from django.contrib.auth.models import User
+from pymongo import MongoClient
+from pymongo.server_api import ServerApi
+from datetime import timedelta
+
+uri = "mongodb+srv://syed:BMmkQtHjyzPLRyYE@cluster0.yb37t1h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# Create a new client and connect to the server
+client = MongoClient(uri, server_api=ServerApi('1'))
+client = MongoClient(uri)
+db = client['infosys']
+agent_availability_collection = db['agent_availability']
+
+
+TIME_SLOT_CHOICES = [
+    ('1-2', '1-2'),
+    ('2-3', '2-3'),
+    ('3-4', '3-4'),
+    ('4-5', '4-5'),
+    ('5-6', '5-6'),
+    ('6-7', '6-7'),
+    ('7-8', '7-8'),
+    ('8-9', '8-9'),
+    ('9-10', '9-10'),
+    ('10-11', '10-11'),
+    ('11-12', '11-12'),
+    ('12-13', '12-13'),
+    ('13-14', '13-14'),
+    ('14-15', '14-15'),
+    ('15-16', '15-16'),
+    ('16-17', '16-17'),
+    ('17-18', '17-18'),
+    ('18-19', '18-19'),
+    ('19-20', '19-20'),
+    ('20-21', '20-21'),
+    ('21-22', '21-22'),
+    ('22-23', '22-23'),
+    ('23-24', '23-24'),
+]
 
 # Create your models here.
 class UserInfo(models.Model):
@@ -55,20 +92,46 @@ class AgentAvailability(models.Model):
     end_time=models.DateTimeField()
     lattitude=models.FloatField()
     longitude=models.FloatField()
+    time_slots = models.CharField(max_length=300, verbose_name='Time Slots')
+
+    def save(self, *args, **kwargs):
+        # Convert time_slots string to a list
+        if isinstance(self.time_slots, str):
+            self.time_slots = self.time_slots.split(',')
+        
+        # Save to MongoDB
+        delta = self.end_time.date() - self.start_time.date()
+        for i in range(delta.days + 1):
+            date = self.start_time.date() + timedelta(days=i)
+            date_str = date.strftime('%d-%m-%Y')
+
+            # Save free and booked slots for each date
+            data = {
+                'day': date_str,
+                'agent': self.agent,
+                'time_slots': self.time_slots,
+                'free_slots': self.time_slots,
+                'booked_slots': [],
+            }
+            agent_availability_collection.insert_one(data)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.agent}"
     
 
+
+
 class Appointment(models.Model):
     Name=models.ForeignKey(User,on_delete=models.CASCADE,null=False)
     select_agent=models.ForeignKey(AgentAvailability,on_delete=models.CASCADE,null=False)
-    time_from = models.TimeField()
-    time_to = models.TimeField()
+    date=models.DateField()
+    time_slots = models.CharField(max_length=300,choices=TIME_SLOT_CHOICES, verbose_name='Time Slots')
     reason=models.TextField(null=False)
-   
+
     def __str__(self):
         return f"{self.Name}"
+
 
     
 
