@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from datetime import timedelta
+from datetime import date
+
 
 uri = "mongodb+srv://syed:BMmkQtHjyzPLRyYE@cluster0.yb37t1h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 # Create a new client and connect to the server
@@ -96,7 +98,7 @@ class AgentAvailability(models.Model):
     end_time=models.DateTimeField()
     lattitude=models.FloatField()
     longitude=models.FloatField()
-    time_slots = models.CharField(max_length=300, verbose_name='Time Slots')
+    time_slots = models.CharField(max_length=300, verbose_name='Time Slots',default="")
 
     def save(self, *args, **kwargs):
         # Convert time_slots string to a list
@@ -129,8 +131,8 @@ class AgentAvailability(models.Model):
 class Appointment(models.Model):
     Name=models.ForeignKey(User,on_delete=models.CASCADE,null=False)
     select_agent=models.ForeignKey(AgentAvailability,on_delete=models.CASCADE,null=False)
-    date=models.DateField()
-    time_slots = models.CharField(max_length=300,choices=TIME_SLOT_CHOICES, verbose_name='Time Slots')
+    date = models.DateField(default=date.today)
+    time_slots = models.CharField(max_length=300,choices=TIME_SLOT_CHOICES, verbose_name='Time Slots', default="")
     reason=models.TextField(null=False)
 
     def __str__(self):
