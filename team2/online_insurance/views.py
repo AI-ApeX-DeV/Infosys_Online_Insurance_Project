@@ -4,12 +4,11 @@ from django.contrib.auth import authenticate, login
 from django import forms
 from .models import AgentAvailability,Policy
 from django.template import loader
-from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest,SetAppointment,NewPolicy
+from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest,SetAppointment,NewPolicy,FeedbackForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
 import folium
-
 
 
 def generate_short_hash(string):
@@ -105,7 +104,17 @@ def home(request):
     return render (request,'aboutus.html')
 
 def feedback(request):
-    return render (request,'feedback.html')
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('feedback_success')  # Redirect to a success page or another view
+    else:
+        form = FeedbackForm()
+    return render(request, 'feedback.html', {'form': form})
+
+def feedback_success(request):
+    return render(request, 'feedback_success.html')
 
 def agent_availability_view(request):
     agent_availabilities = AgentAvailability.objects.all()

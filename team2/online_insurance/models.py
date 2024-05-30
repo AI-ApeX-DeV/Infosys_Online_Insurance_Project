@@ -78,3 +78,13 @@ class Policy(models.Model):
 
     def __str__(self):
         return f"name - {self.policy_name}    price - {self.price}"
+
+class Feedback(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    contact = models.CharField(max_length=15)
+    feedback = models.TextField()
+
+    def __str__(self):
+        return self.name
+   

@@ -3,424 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Feedback Form</title>
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
-        html,
+        /* CSS styles directly within the HTML file */
+
+        /* Set background image */
         body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Quicksand", sans-serif;
-            font-size: 62.5%;
-            font-size: 10px;
-        }
-
-        /* Navbar section */
-
-        .nav {
-            width: 100%;
-            height: 65px;
-            position: fixed;
-            line-height: 65px;
-            text-align: center;
-        }
-
-        .nav div.logo {
-            float: left;
-            width: auto;
-            height: auto;
-            padding-left: 3rem;
-        }
-
-        .nav div.logo a {
-            text-decoration: none;
-            color: #fff;
-            font-size: 2.5rem;
-        }
-
-        .nav div.logo a:hover {
-            color: #00E676;
-        }
-
-        .nav div.main_list {
-            height: 65px;
-            float: right;
-        }
-
-        .nav div.main_list ul {
-            width: 100%;
-            height: 65px;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
             display: flex;
-            list-style: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
             padding: 0;
         }
 
-        .nav div.main_list ul li {
-            width: auto;
-            height: 65px;
-            padding: 0;
-            padding-right: 3rem;
+        /* Main container */
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center horizontally */
+            width: 200%;
+            max-width: 500px; /* Increased max-width for larger block */
         }
 
-        .nav div.main_list ul li a {
-            text-decoration: none;
-            color: #fff;
-            line-height: 65px;
-            font-size: 2.4rem;
+        /* Feedback block */
+        .feedback-block {
+            padding: 50px; /* Increased padding for larger block */
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
         }
 
-        .nav div.main_list ul li a:hover {
-            color: #00E676;
+        /* Heading */
+        h2 {
+            text-align: center;
+            color: #104148;
+            margin-bottom: 20px;
         }
 
-
-        /* Home section */
-
-        .home {
-            width: 100%;
-            height: 100vh;
-            background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b0f6908fa5e81286213c7211276e6b3d&auto=format&fit=crop&w=1500&q=80);
-            background-position: center top;
-            background-size:cover;
+        /* Form */
+        form {
+            display: flex;
+            flex-direction: column;
         }
 
-        .navTrigger {
-            display: none;
+        /* Form inputs */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        input[type="submit"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
         }
 
-        .nav {
-            padding-top: 20px;
-            padding-bottom: 20px;
-            -webkit-transition: all 0.4s ease;
-            transition: all 0.4s ease;
+        /* Larger feedback input */
+        input[type="text"]#feedback {
+            height: 100px; /* Increased height for feedback input */
         }
 
-
-        /* Media qurey section */
-
-        @media screen and (min-width: 768px) and (max-width: 1024px) {
-            .container {
-                margin: 0;
-            }
+        /* Form inputs focus */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus,
+        input[type="submit"]:hover {
+            border-color: #1f1f96;
         }
 
-        @media screen and (max-width:768px) {
-            .navTrigger {
-                display: block;
-            }
-            .nav div.logo {
-                margin-left: 15px;
-            }
-            .nav div.main_list {
-                width: 100%;
-                height: 0;
-                overflow: hidden;
-            }
-            .nav div.show_list {
-                height: auto;
-                display: none;
-            }
-            .nav div.main_list ul {
-                flex-direction: column;
-                width: 100%;
-                height: 100vh;
-                right: 0;
-                left: 0;
-                bottom: 0;
-                background-color: #111;
-                /*same background color of navbar*/
-                background-position: center top;
-            }
-            .nav div.main_list ul li {
-                width: 100%;
-                text-align: right;
-            }
-            .nav div.main_list ul li a {
-                text-align: center;
-                width: 100%;
-                font-size: 3rem;
-                padding: 20px;
-            }
-            .nav div.media_button {
-                display: block;
-            }
-        }
-
-
-        /* Animation */
-        /* Inspiration taken from Dicson https://codemyui.com/simple-hamburger-menu-x-mark-animation/ */
-
-        .navTrigger {
+        /* Submit button */
+        input[type="submit"] {
+            background-color: #0056b3;
+            color: white;
+            border: none;
             cursor: pointer;
-            width: 30px;
-            height: 25px;
-            margin: auto;
-            position: absolute;
-            right: 30px;
+        }
+
+        /* Feedback note */
+        .feedback-note {
+            text-align: center;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Background image */
+        .background-image {
+            flex: 1;
+            background-image: url('https://www.lionandmason.com/wp-content/uploads/2023/02/pexels-kindel-media-7688374.jpg.webp');
+            background-size: cover;
+            background-position: right;
+            height: 100vh;
+            position: fixed; /* Ensure it covers the entire viewport */
             top: 0;
+            right: 0;
             bottom: 0;
-        }
-
-        .navTrigger i {
-            background-color: #fff;
-            border-radius: 2px;
-            content: '';
-            display: block;
-            width: 100%;
-            height: 4px;
-        }
-
-        .navTrigger i:nth-child(1) {
-            -webkit-animation: outT 0.8s backwards;
-            animation: outT 0.8s backwards;
-            -webkit-animation-direction: reverse;
-            animation-direction: reverse;
-        }
-
-        .navTrigger i:nth-child(2) {
-            margin: 5px 0;
-            -webkit-animation: outM 0.8s backwards;
-            animation: outM 0.8s backwards;
-            -webkit-animation-direction: reverse;
-            animation-direction: reverse;
-        }
-
-        .navTrigger i:nth-child(3) {
-            -webkit-animation: outBtm 0.8s backwards;
-            animation: outBtm 0.8s backwards;
-            -webkit-animation-direction: reverse;
-            animation-direction: reverse;
-        }
-
-        .navTrigger.active i:nth-child(1) {
-            -webkit-animation: inT 0.8s forwards;
-            animation: inT 0.8s forwards;
-        }
-
-        .navTrigger.active i:nth-child(2) {
-            -webkit-animation: inM 0.8s forwards;
-            animation: inM 0.8s forwards;
-        }
-
-        .navTrigger.active i:nth-child(3) {
-            -webkit-animation: inBtm 0.8s forwards;
-            animation: inBtm 0.8s forwards;
-        }
-
-        @-webkit-keyframes inM {
-            50% {
-                -webkit-transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(45deg);
-            }
-        }
-
-        @keyframes inM {
-            50% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(45deg);
-            }
-        }
-
-        @-webkit-keyframes outM {
-            50% {
-                -webkit-transform: rotate(0deg);
-            }
-            100% {
-                -webkit-transform: rotate(45deg);
-            }
-        }
-
-        @keyframes outM {
-            50% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(45deg);
-            }
-        }
-
-        @-webkit-keyframes inT {
-            0% {
-                -webkit-transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                -webkit-transform: translateY(9px) rotate(0deg);
-            }
-            100% {
-                -webkit-transform: translateY(9px) rotate(135deg);
-            }
-        }
-
-        @keyframes inT {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(9px) rotate(0deg);
-            }
-            100% {
-                transform: translateY(9px) rotate(135deg);
-            }
-        }
-
-        @-webkit-keyframes outT {
-            0% {
-                -webkit-transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                -webkit-transform: translateY(9px) rotate(0deg);
-            }
-            100% {
-                -webkit-transform: translateY(9px) rotate(135deg);
-            }
-        }
-
-        @keyframes outT {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(9px) rotate(0deg);
-            }
-            100% {
-                transform: translateY(9px) rotate(135deg);
-            }
-        }
-
-        @-webkit-keyframes inBtm {
-            0% {
-                -webkit-transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                -webkit-transform: translateY(-9px) rotate(0deg);
-            }
-            100% {
-                -webkit-transform: translateY(-9px) rotate(135deg);
-            }
-        }
-
-        @keyframes inBtm {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-9px) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-9px) rotate(135deg);
-            }
-        }
-
-        @-webkit-keyframes outBtm {
-            0% {
-                -webkit-transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                -webkit-transform: translateY(-9px) rotate(0deg);
-            }
-            100% {
-                -webkit-transform: translateY(-9px) rotate(135deg);
-            }
-        }
-
-        @keyframes outBtm {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-9px) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-9px) rotate(135deg);
-            }
-        }
-
-        .affix {
-            padding: 0;
-            background-color: #111;
-        }
-
-        .myH2 {
-            text-align:center;
-            font-size: 4rem;
-        }
-        .myP {
-            text-align: justify;
-            padding-left:15%;
-            padding-right:15%;
-            font-size: 20px;
-        }
-        @media all and (max-width:700px){
-            .myP {
-                padding:2%;
-            }
+            left: 0;
+            z-index: -1; /* Send it to the back */
         }
     </style>
-    <script>
-        $('.navTrigger').click(function () {
-            $(this).toggleClass('active');
-            console.log("Clicked menu");
-            $("#mainListDiv").toggleClass("show_list");
-            $("#mainListDiv").fadeIn();
-        });
-    </script>
 </head>
 <body>
-    <nav class="nav">
-        <div class="container">
-            <div class="logo">
-                <a href="#">Your Logo</a>
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="feedback-block">
+            <h2>Feedback</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Name" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <label for="contact">Contact</label>
+                <input type="tel" id="contact" name="contact" placeholder="Contact" required>
+                <label for="feedback">Feedback</label>
+                <input type="text" id="feedback" name="feedback">
+                <input type="submit" value="Submit Feedback">
+            </form>
+            <div class="feedback-note">
+                Thank you for your feedback!
             </div>
-            <div id="mainListDiv" class="main_list">
-                <ul class="navlinks">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <span class="navTrigger">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
         </div>
-    </nav>
-
-    <section class="home">
-    </section>
-
-    <div style="background-color: aqua;">
-        <center>
-            <h1>HERO</h1>
-            <h2>HERO</h2>
-            <h3>HERO</h3>
-            <h4>HERO</h4>
-            <h5>HERO</h5>
-            <h6>HERO</h6>
-        </center>
     </div>
-    
-<!-- Jquery needed -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/scripts.js"></script>
-
-<!-- Function used to shrink nav bar removing paddings and adding black background -->
-    <script>
-        $(window).scroll(function() {
-            if ($(document).scrollTop() > 50) {
-                $('.nav').addClass('affix');
-                console.log("OK");
-            } else {
-                $('.nav').removeClass('affix');
-            }
-        });
-    </script>
 </body>
 </html>

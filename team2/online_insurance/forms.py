@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import AgentAvailability,Appointment,Policy
-
+from .models import AgentAvailability,Appointment,Policy,Feedback
 
 class CustomRegistrationForm(forms.Form):
     username = forms.CharField(label='Username', max_length=150)
@@ -53,4 +52,8 @@ class NewPolicy(forms.ModelForm):
     class Meta:
         model = Policy
         fields = '__all__'
-        
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['name', 'email', 'contact', 'feedback']
