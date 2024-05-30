@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import AgentAvailability,Appointment,Policy
+# Register your models here
+from .models import AgentAvailability,Appointment,Policy,UserProfile
 # Register your models here.
+from .forms import PasswordResetRequestForm,PasswordResetForm
 
 admin.site.register(AgentAvailability)
 admin.site.register(Appointment)
@@ -15,3 +18,5 @@ class PolicyAdmin(admin.ModelAdmin):
     # formatted_str.short_description = 'Policy Details'
 
 admin.site.register(Policy, PolicyAdmin)
+admin.site.register(UserProfile)
+
