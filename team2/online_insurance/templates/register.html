@@ -19,8 +19,8 @@
             background-color: #f8f9fa;
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
             height: 100vh;
             margin: 0;
             padding: 0;
@@ -107,25 +107,56 @@
         /* Login link */
         .login-link {
             text-align: center;
-            color: #f8f6f6;
+            color: #100705;
             margin-top: 20px;
         }
 
         .login-link a {
-            color: #104148;
+            color: #1292a5;
             text-decoration: none;
             font-weight: bold;
         }
+        .messages {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    text-align: center; /* Center align messages */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.messages li {
+    padding: 10px;
+    margin-bottom: 100px;
+    border-radius: 5px;
+    color: #fff;
+    display: inline-block; /* Inline-block to center within parent */
+}
+
+.messages li.error {
+    background-color: #1292a5;
+}
+
+.messages li.success {
+    background-color: #4CAF50;
+}
+
+    
     </style>
 </head>
 <body>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    <center>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </center>
+    
     <div class="background-image"></div>
     <div class="container">
         <div class="registration-block">
