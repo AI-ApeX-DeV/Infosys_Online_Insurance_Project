@@ -94,12 +94,25 @@
                         <div class="name">Logout</div>
                     </div>
                 </div>
-                <a href="#"><i class='bx bx-log-out' id="log_out"></i></a>
+                <a href="login/"><i class='bx bx-log-out' id="log_out"></i></a>
             </li>
         </ul>
     </div>
-
+    {{ room_name|json_script:"room-name" }}
     <script>
+        const roomName = 'broadcast';  // Ensure this matches your desired room name
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/notifications/' + roomName + '/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log(data.message);
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
         document.addEventListener('DOMContentLoaded', function() {
             let sidebar = document.querySelector(".sidebar");
             let closeBtn = document.querySelector("#btn");
@@ -122,27 +135,6 @@
                     closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");
                 }
             }
-
-            const roomName = JSON.parse(document.getElementById('room-name').textContent);
-
-            const notificationSocket = new WebSocket(
-                'ws://'
-                + window.location.host
-                + '/ws/notification/'
-                + roomName
-                + '/'
-            );
-
-            notificationSocket.onmessage = function(e) {
-                const data = JSON.parse(e.data);
-                console.log(data);
-                document.getElementById("notifications-dropdown").innerHTML = "<li class='dropdown-item'>" + data + "</li><hr class='dropdown-divider'>" + document.getElementById("notifications-dropdown").innerHTML;
-                document.getElementById("notification-badge").innerHTML = parseInt(document.getElementById("notification-badge").innerHTML) + 1;
-            };
-
-            notificationSocket.onclose = function(e) {
-                console.error('Chat socket closed unexpectedly');
-            };
 
             const notificationCount = document.getElementById('notificationCount');
 

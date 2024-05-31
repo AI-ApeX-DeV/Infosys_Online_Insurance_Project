@@ -38,7 +38,7 @@ urlpatterns = [
     path("appointment/",views.appointment,name="appointment"),
     path("policy/",views.PolicyUpdate,name="policy"),
     path("policy/details",views.details,name="details"),
-    
+    path('login/home/login/',views.user_login)
     
     ]
     
