@@ -214,7 +214,6 @@ def password_reset_verify_otp(request):
         form = PasswordResetForm()
     return render(request, 'password_reset_verify_otp.html', {'form': form})
 
-
 def map(request):
     if request.method == 'POST':
         district = request.POST.get('district').strip()
@@ -249,53 +248,11 @@ def map(request):
             folium.Marker(location=[agent_location.lattitude, agent_location.longitude], popup=popup_html).add_to(map)
 
         # Convert the map to HTML
-        map_html = map._repr_html_()
+        map_html = map.repr_html()
         return render(request, 'map.html', {'district': district, 'map_html': map_html})
 
     # If the request method is not 'POST', return the default map page
     return render(request, 'map.html', {'district': '', 'map_html': '', 'error': ''})
-
-
-def map(request):
-    if request.method == 'POST':
-        district = request.POST.get('district').strip()
-
-        # Query AgentAvailability objects for the given district
-        agent_locations = AgentAvailability.objects.filter(agent_district=district)
-
-        if not agent_locations:
-            return render(request, 'map.html', {'district': district, 'error': 'No records found for this district.'})
-
-        # Create a Folium map centered on the first agent location
-        map = folium.Map(location=[agent_locations[0].lattitude, agent_locations[0].longitude], zoom_start=10)
-
-        # Add markers for all the agent locations
-        for agent_location in agent_locations:
-            # Create the popup HTML
-            popup_html = f"""
-            <div style="width: 300px;">
-                <h3 style="margin: 0; padding: 10px; background-color: #00704A; color: #FFF; text-align: center; font-size: 20px;">
-                    Agent: {agent_location.agent}
-                </h3>
-                <div style="padding: 10px;">
-                    <p style="margin: 0; margin-bottom: 5px; font-size: 16px;">Phone: {agent_location.agent_phone}</p>
-                    <p style="margin: 0; margin-bottom: 5px; font-size: 16px;">Status: {agent_location.status}</p>
-                    <p style="margin: 0; margin-bottom: 5px; font-size: 16px;">Start Time: {agent_location.start_time}</p>
-                    <p style="margin: 0; margin-bottom: 5px; font-size: 16px;">End Time: {agent_location.end_time}</p>
-                  
-                </div>
-            </div>
-            """
-            # Add a marker with the popup to the map
-            folium.Marker(location=[agent_location.lattitude, agent_location.longitude], popup=popup_html).add_to(map)
-
-        # Convert the map to HTML
-        map_html = map._repr_html_()
-        return render(request, 'map.html', {'district': district, 'map_html': map_html})
-
-    # If the request method is not 'POST', return the default map page
-    return render(request, 'map.html', {'district': '', 'map_html': '', 'error': ''})
-
 
 from django.template import RequestContext
 def home1(request):
