@@ -22,6 +22,7 @@ import json
 from asgiref.sync import async_to_sync
 from django.utils import timezone
 from datetime import timedelta
+from django.contrib.auth import logout
 
 
 def register(request):
@@ -272,3 +273,13 @@ def test(request):
         }
     )
     return HttpResponse("Done")
+
+def custom_logout(request):
+    logout(request)
+    response = redirect('/login/')  # Redirect to the login page after logging out
+    
+    # Delete the CSRF token and session ID from the browser cookies
+    response.delete_cookie('csrftoken')
+    response.delete_cookie('sessionid')
+    
+    return response
