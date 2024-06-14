@@ -46,6 +46,11 @@ class UserInfo(models.Model):
     mail=models.EmailField()
     password=models.CharField(max_length=200)
 
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    otp_secret = models.CharField(max_length=32, blank=True, null=True)
+
 class AgentAvailability(models.Model):
     #agent=models.ForeignKey(User,on_delete=models.CASCADE)
     agent=models.CharField(max_length=100,default='')
@@ -137,7 +142,21 @@ class Appointment(models.Model):
 
 class Policy(models.Model):
     policy_name=models.CharField(max_length=200)
-    price=models.IntegerField()
+    PolicyType=models.CharField(max_length=200,null=True)
+    Policy_Number=models.IntegerField(null=True)
+    price=models.IntegerField(null=True)
+    RenewalDate=models.CharField(max_length=200,null=True)
+    Contact_Info=models.CharField(max_length=100,null=True)
+
 
     def __str__(self):
         return f"name - {self.policy_name}    price - {self.price}"
+
+class Feedback(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    contact = models.CharField(max_length=15)
+    feedback = models.TextField()
+
+    def __str__(self):
+        return self.name

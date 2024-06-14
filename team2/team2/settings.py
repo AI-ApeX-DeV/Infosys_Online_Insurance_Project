@@ -43,6 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'online_insurance',
+    'channels',
+    'django_celery_beat',
+    'django_celery_results',
+    'widget_tweaks',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'team2.middleware.LoginRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'team2.urls'
@@ -74,6 +80,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'team2.wsgi.application'
+ASGI_APPLICATION = 'team2.asgi.application'
 
 
 # Database
@@ -129,3 +136,15 @@ STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER ='atharvapatange07@gmail.com'  # e.g., 'your-gmail-address@gmail.com'
+EMAIL_HOST_PASSWORD ='jyuaqdukerzipxad'  # Use the App Password
+DEFAULT_FROM_EMAIL ='Atharva Patange <atharvapatange07@gmail.com>'  # e.g., 'Your Name <your-gmail-address@gmail.com>'

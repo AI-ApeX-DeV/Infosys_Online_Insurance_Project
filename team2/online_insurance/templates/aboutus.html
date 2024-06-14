@@ -1,144 +1,189 @@
 {% extends 'base.html' %}
-
-{% block title %}Home | My Website{% endblock %}
-
 {% block content %}
-
-<!-- Add home page content here -->
-<!-- agent.html -->
-{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Online Insurance</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>About Us | Online Insurance</title>
     <style>
-        /* styles.css */
+        /* Set background and general styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+        .header, footer {
+            width: 100%;
+        }
 
-header {
-    background-color: yellow;
-    color: rebeccapurple;
-    padding: 20px;
-}
+        .header {
+            background-color: #003366;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
 
-header h1 {
-    margin: 0;
-}
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
+        .header p {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+        }
 
-nav ul li {
-    display: inline;
-    margin-right: 20px;
-}
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            width: 100%;
+        }
 
+        .content-left {
+            flex: 1;
+            padding: 20px;
+            background-color: #f7f7f7;
+            text-align: center;
+        }
 
-.about-us {
-    padding: 20px;
-}
+        .content-left h2 {
+            color: #003366;
+            margin-bottom: 20px;
+        }
 
-footer {
-    background-color: #f8f9fa;
-    padding: 10px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-.heading{
-    color: #ff6347;
-    font-size: 55px;
-    text-align: center;
-    margin-top: 35px;
-}
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    margin: 55px auto;
-}
-.about-us{
-    flex: 1;
-    width: 600px;
-    margin: 0px 25px;
-}
-.hero-image{
-    flex: 1;
-    width: 600px;
-    margin: auto;
-}
-img{
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
+        .content-left p {
+            line-height: 1.6;
+            color: #333;
+        }
 
-}
+        .content-right {
+            flex: 1;
+            position: relative;
+            height: 300px; /* Adjust height as needed */
+            width: 100%;
+        }
 
+        .content-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-container p,
+        .footer-container a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0;
+        }
+
+        .footer-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .footer-icons a {
+            color: #ec3b3b;
+            font-size: 1.5em;
+        }
+
+        /* Slider styles */
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slider img.active {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Online Insurance</h1>
-        <nav>
-            <ul>
-                
-                
-                <li><a href="about.html">About Us</a></li>
-                
-            </ul>
-        </nav>
-    </header>
-    <section class="hero">
-        <div class="heading">
-            <h1>About Us</h1>
+    <div class="header">
+        <h1>About Us</h1>
+        <p>Your Trusted Partner in Securing Your Future</p>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="content-left">
+                <h2>Welcome to Online Insurance</h2>
+                <p>The future of India will be shaped by today’s younger generation who need quality education through digital literacy, making them productive and self-reliant citizens. 'Digital literacy' is the skills required to achieve digital competence and use of Information and Communication Technology (ICT) for work, leisure, learning, and communication. It does not replace traditional forms of literacy, instead complements and amplifies the skills that form the foundation of traditional forms.</p>
+                <p>Our emphasis is on the development of people, especially around digital talent at scale, technology for good, diversity and inclusion, and energizing the communities we work in.</p>
+            </div>
+            <div class="content-right">
+                <div class="slider">
+                    <img src="https://www.textlinks.com/wp-content/uploads/2018/10/marketing-for-insurance-agents-1280x640.jpeg" alt="Company Image 1" class="active">
+                    <img src="https://www.maxlifeinsurance.com/content/dam/corporate/images/online%20insurance3.jpg" alt="Company Image 2">
+                    <img src="https://www.themindanaojournal.com/wp-content/uploads/2020/09/digital-insurance-480x270.jpg" alt="Company Image 3">
+                    <img src="https://www.canarahsbclife.com/content/dam/choice/blog-inner/images/why-one-should-not-exit-ulips-after-the-end-of-lock-in-period.jpg" alt="Uploaded Image">
+                </div>
+            </div>
         </div>
-<div class="container">
-    <div class="about-us">
-        <h2>Welcome To Our Website</h2>
-        <p>Welcome to Online Insurance,your trusted partner in securing your future.We understand that insurance is not just 
-           about protecting your assets,but also about safeguarding your peace of mind With our commitment to excellence and 
-           customer satisfaction,we strive to provide you with the best insurance solutions tailored to your needs.Our  team
-           of experienced professionals is dedicated to assisting you every step of the way,from selecting the right insurance
-           plan to handling claims efficiently.We believe in transparency, integrity, and reliability, ensuring that you can 
-           trust us with your insurance needs.At Online Insurance,we aim to simplify the insurance process and make it accessible
-           to everyone. Whether you're an individual looking for personal coverage or a business seeking comprehensive solutions,
-           we've got you covered.</p>
-        
-    <button class="cta-button">Learn More</button>
     </div>
-    </div>
-    <div class="hero-image">
-        <img src="https://tse3.mm.bing.net/th?id=OIP.R7siMPvI9vPoGs2tQPeaRgHaEK&pid=Api&P=0&h=220">
-    </div>
-    </section>
-    
-        
-
-
-
     <footer>
-        <p>&copy; 2024 Online Insurance. All rights reserved.</p>
+        <div class="footer-container">
+            <p>&copy; 2024 Online Insurance. All rights reserved.</p>
+            <p>Contact Us: +1-234-567-890 | </i> +1-234-567-890</p>
+            <p><i class="fa fa-map-marker"></i> 123 Insurance St., Suite 456, Delhi, India</p>
+            
+        </div>
     </footer>
+
+    <script>
+        const images = document.querySelectorAll('.slider img');
+        let currentIndex = 0;
+
+        function showNextImage() {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }
+
+        setInterval(showNextImage, 4000);
+    </script>
 </body>
 </html>
-
 {% endblock %}
