@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}    Agent Registration{% endblock %}
+
+{% block content %}
+
+<!-- templates/agent_list.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent List</title>
+    <link rel="stylesheet" href="{% static 'agent_list.css' %}">
+    <script defer src="{% static 'js/agent_list_script.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Agent List</h1>
+        <div class="filter-container">
+            <label for="status-filter">Filter by Status:</label>
+            <select id="status-filter">
+                <option value="all">All</option>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+            </select>
+        </div>
+        <div id="agent-list" class="agent-list">
+            {% for agent in agents %}
+            <div class="agent-card" data-status="{{ agent.status }}">
+                <h2>{{ agent.agent }}</h2>
+                <p><strong>Phone:</strong> {{ agent.agent_phone }}</p>
+                <p><strong>District:</strong> {{ agent.agent_district }}</p>
+                <p><strong>Status:</strong> {{ agent.status }}</p>
+                <p><strong>Start Time:</strong> {{ agent.start_time }}</p>
+                <p><strong>End Time:</strong> {{ agent.end_time }}</p>
+                <p><strong>Location:</strong> {{ agent.lattitude }}, {{ agent.longitude }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

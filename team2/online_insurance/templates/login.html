@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* CSS styles directly within the HTML file */
+
+        /* Set background image */
+        body {
+            background-image: url('https://www.lionandmason.com/wp-content/uploads/2023/02/pexels-kindel-media-7688374.jpg.webp');
+            background-size: cover;
+            background-position: right center; /* Adjusted position */
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style the form */
+        form {
+            margin: 20px;
+            padding: 20px;
+            width: 300px; /* Adjusted width */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8); /* Translucent background */
+        }
+
+        /* Style the form elements */
+        input[type="text"],
+        input[type="password"],
+        button {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        /* Style the submit button */
+        button[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style the form heading */
+        h2 {
+            text-align: center;
+            color: #333; /* Darker text color for contrast */
+            margin-bottom: 20px;
+        }
+
+        /* Style the forgot password link */
+        .forgot-password {
+            text-align: right;
+            margin-top: -10px; /* Adjust spacing */
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: #007BFF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .forgot-password a:hover {
+            color: #0056b3;
+        }
+<<<<<<< HEAD
+        .messages li {
+            padding: 10px;
+            border: 1px solid #d9534f;
+            border-radius: 5px;
+            background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+            margin-bottom: 10px;
+        }
+=======
+>>>>>>> 87f6b5d5608f62a4e382a7ad82adc8f3dcc5a7b3
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% csrf_token %}
+        <h2>Login</h2>
+        <!-- Dynamic placeholders for form fields -->
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <div class="forgot-password">
+<<<<<<< HEAD
+            <a href="password_reset_request">Forgot Password?</a>
+=======
+            <a href="forgot.html">Forgot Password?</a>
+>>>>>>> 87f6b5d5608f62a4e382a7ad82adc8f3dcc5a7b3
+        </div>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
