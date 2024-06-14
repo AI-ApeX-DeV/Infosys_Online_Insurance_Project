@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Appointment{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Policy</title>
+    <style>
+        /* Set background image and styling */
+        body {
+            background-image: url('https://media.licdn.com/dms/image/C4E12AQEpPECEcf6WXg/article-cover_image-shrink_720_1280/0/1520092584185?e=1721865600&v=beta&t=zceT2tJojOLu2ahKuVgBqdKerPDDpNOR7IUd611yGWQ');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* Style the form container */
+        form {
+            background-color: rgba(255, 255, 255, 0.9); /* Translucent background */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(167, 151, 151, 0.2);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        /* Style form elements */
+        form p {
+            margin-bottom: 15px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="password"],
+        form select,
+        form textarea {
+            width: 100%; /* Ensure full width for all inputs */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        /* Add space between heading and first input */
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        /* Style the submit button */
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+                width: 90%;
+            }
+
+            form input[type="text"],
+            form input[type="email"],
+            form input[type="password"],
+            form select,
+            form textarea {
+                width: 100%;
+            }
+
+            .btn {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <center><h2>Add a New Policy</h2></center>
+        
+        <label for="policy_name">Policy Name</label>
+        <input type="text" id="policy_name" name="policy_name" placeholder="Policy Name" required>
+
+        <label for="PolicyType">Policy Type</label>
+        <select id="PolicyType" name="PolicyType" placeholder="Policy Type" required>
+            <option value="">Select Type</option>
+            <option>Health Insurance</option>
+            <option>Home Insurance</option>
+            <option>Car Insurance</option>
+        </select>
+      
+        <label for="Policy_Number">Policy Number</label>
+        <input type="text" id="Policy_Number" name="Policy_Number" placeholder="Policy Number" required>
+
+        <label for="price">Price</label>
+        <input type="text" id="price" name="price" placeholder="Price" required>
+
+        <label for="RenewalDate">Renewal Date</label>
+        <input type="text" id="RenewalDate" name="RenewalDate" placeholder="Renewal Date" required>
+
+        <label for="Contact_Info">Contact Info</label>
+        <input type="text" id="Contact_Info" name="Contact_Info" placeholder="Contact Info" required>
+
+        <input type="submit" class="btn" value="Add Policy">
+    </form>
+</body>
+</html>
+{% endblock %}

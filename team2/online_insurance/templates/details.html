@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Appointment{% endblock %}
+
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://media.licdn.com/dms/image/D4D12AQF7_XulcZnzaA/article-cover_image-shrink_720_1280/0/1695311696795?e=1721865600&v=beta&t=7_11aCvcGQAdt9UQZSDx4xXAFW_hFAY20AuoxSQseXw');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .back-link a:hover {
+            color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Policy Name</th>
+                    <th>Policy Type</th>
+                    <th>Policy Number</th>
+                    <th>Price</th>
+                    <th>Renewal Date</th>
+                    <th>Contact Info</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in policy %}
+                <tr>
+                    <td>{{ i.policy_name }}</td>
+                    <td>{{ i.PolicyType }}</td>
+                    <td>{{ i.Policy_Number }}</td>
+                    <td>{{ i.price }}</td>
+                    <td>{{ i.RenewalDate }}</td>
+                    <td>{{ i.Contact_Info }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="back-link">
+            <p>Back to <a href="/login/home/">home</a></p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
