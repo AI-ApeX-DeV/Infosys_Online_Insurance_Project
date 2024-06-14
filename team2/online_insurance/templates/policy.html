@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Appointment{% endblock %}
+
+{% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +31,7 @@
             background-color: rgba(255, 255, 255, 0.9); /* Translucent background */
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(167, 151, 151, 0.2);
             width: 100%;
             max-width: 400px;
             box-sizing: border-box;
@@ -47,13 +53,18 @@
         form input[type="password"],
         form select,
         form textarea {
-            width: calc(100% - 20px);
+            width: 100%; /* Ensure full width for all inputs */
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-sizing: border-box;
             font-size: 16px;
+        }
+
+        /* Add space between heading and first input */
+        h2 {
+            margin-bottom: 20px;
         }
 
         /* Style the submit button */
@@ -88,7 +99,7 @@
             form input[type="password"],
             form select,
             form textarea {
-                width: calc(100% - 20px);
+                width: 100%;
             }
 
             .btn {
@@ -101,8 +112,33 @@
 <body>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn" value="Add Policy" />
+        <center><h2>Add a New Policy</h2></center>
+        
+        <label for="policy_name">Policy Name</label>
+        <input type="text" id="policy_name" name="policy_name" placeholder="Policy Name" required>
+
+        <label for="PolicyType">Policy Type</label>
+        <select id="PolicyType" name="PolicyType" placeholder="Policy Type" required>
+            <option value="">Select Type</option>
+            <option>Health Insurance</option>
+            <option>Home Insurance</option>
+            <option>Car Insurance</option>
+        </select>
+      
+        <label for="Policy_Number">Policy Number</label>
+        <input type="text" id="Policy_Number" name="Policy_Number" placeholder="Policy Number" required>
+
+        <label for="price">Price</label>
+        <input type="text" id="price" name="price" placeholder="Price" required>
+
+        <label for="RenewalDate">Renewal Date</label>
+        <input type="text" id="RenewalDate" name="RenewalDate" placeholder="Renewal Date" required>
+
+        <label for="Contact_Info">Contact Info</label>
+        <input type="text" id="Contact_Info" name="Contact_Info" placeholder="Contact Info" required>
+
+        <input type="submit" class="btn" value="Add Policy">
     </form>
 </body>
 </html>
+{% endblock %}

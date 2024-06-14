@@ -4,27 +4,26 @@ from django.contrib.auth import authenticate, login
 from django import forms
 from .models import AgentAvailability,Policy,UserProfile
 from django.template import loader
-from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest,SetAppointment,NewPolicy,PasswordResetForm,PasswordResetRequestForm
+from .forms import CustomRegistrationForm, CustomLoginForm,AgentRequest,SetAppointment,NewPolicy,PasswordResetForm,PasswordResetRequestForm,FeedbackForm
+from notifications.models import BroadcastNotification
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 import binascii
 import folium
-<<<<<<< HEAD
-from pymongo import MongoClient
-from pymongo.server_api import ServerApi
-from django.views.generic import TemplateView
+import pyotp
+from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.conf import settings
 from django.contrib import messages
-
-uri = "mongodb+srv://syed:BMmkQtHjyzPLRyYE@cluster0.yb37t1h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-# Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
-client = MongoClient(uri)
-db = client['infosys']
-agent_availability_collection = db['agent_availability']
-
-
-class ErrorPageView(TemplateView):
-    template_name = 'error_page.html'
+from django.core.mail import EmailMessage
+import random
+from channels.layers import get_channel_layer
+import json
+from asgiref.sync import async_to_sync
+from django.utils import timezone
+from datetime import timedelta
+from django.contrib.auth import logout
+import time
 
 def generate_short_hash(string):
     # Calculate the CRC32 hash
@@ -38,21 +37,9 @@ def generate_short_hash(string):
 
     return short_hash
 
-=======
-import pyotp
-from django.core.mail import send_mail
-from django.conf import settings
-from django.contrib import messages
-from django.core.mail import EmailMessage
-import random
-from channels.layers import get_channel_layer
-import json
-from asgiref.sync import async_to_sync
-from django.utils import timezone
-from datetime import timedelta
 
 
->>>>>>> 1f937d421d20b6d2761b6549d813601cbde6afa2
+
 def register(request):
     if request.method == 'POST':
         form = CustomRegistrationForm(request.POST)
@@ -61,14 +48,24 @@ def register(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            # Create a new user object and set the password securely
-            user = User(username=username, email=email)
-            user.set_password(password)
-            user.save()
-            return redirect("login")  # Redirect to login page after successful registration
+            # Check if the username or email already exists
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists.')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already exists.')
+            else:
+                # Create a new user object and set the password securely
+                user = User(username=username, email=email)
+                user.set_password(password)
+                user.save()
+                messages.success(request, 'Registration successful! You can now log in.')
+                return redirect("login")  # Redirect to login page after successful registration
+        else:
+            messages.error(request, 'The email or Username is Already taken')
     else:
         form = CustomRegistrationForm()
     return render(request, 'register.html', {'form': form})
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -86,6 +83,17 @@ def user_login(request):
     else:
         form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
+
+
+def custom_logout(request):
+    logout(request)
+    response = redirect('/login/')  # Redirect to the login page after logging out
+
+    # Delete the CSRF token and session ID from the browser cookies
+    response.delete_cookie('csrftoken')
+    response.delete_cookie('sessionid')
+
+    return response
 
 
 
@@ -194,7 +202,14 @@ def home(request):
     return render (request,'aboutus.html')
 
 def feedback(request):
-    return render (request,'feedback.html')
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Thank you for your valuable feedback!')  # 4000 milliseconds = 4 seconds
+    else:
+        form = FeedbackForm()
+    return render(request, 'feedback.html', {'form': form})
 
 def agent_availability_view(request):
     agent_availabilities = AgentAvailability.objects.all()
@@ -217,19 +232,35 @@ def agentupdate(request):
     return render(request,'agent.html',context)
 
 
+
+def send_mail(email, agent_name, date):
+    subject = 'Appointment Scheduled'
+    message = f'Your appointment with {agent_name} is scheduled successfully for {date}.'
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient_list = [email]
+    email = EmailMessage(subject, message, from_email, recipient_list)
+    email.send()
+
 def appointment(request):
     form = SetAppointment()
     try:
         if request.method == 'POST':
             form = SetAppointment(request.POST)
             if form.is_valid():
-                form.save()
-                return redirect('/admin/')
+                appointment = form.save()  # Save the appointment and get the instance
+                # Extract the email, agent name, and date from the saved appointment instance
+                email = appointment.Name.email
+                agent_name = appointment.select_agent.agent  # Get the agent's name from the agent field
+                date = appointment.date
+                send_mail(email, agent_name, date)
+                return redirect('/login/home/')  # Redirect to a success page or another view
         context = {'form': form}
         return render(request, 'appointment.html', context)
     except Exception as e:
         messages.error(request, "The time slot is already booked for the agent or not available")
         return render(request, 'appointment.html', {'form': form})
+    
+
 
 def PolicyUpdate(request):
     form=NewPolicy()
@@ -245,6 +276,10 @@ def details(request):
     policy=Policy.objects.all()
     context={"policy":policy}
     return render(request,"details.html",context)
+
+def notification_count(request):
+    notification_count = BroadcastNotification.objects.count()
+    return JsonResponse({'notification_count': notification_count})
 
 
 from django.template import RequestContext
@@ -265,3 +300,9 @@ def test(request):
         }
     )
     return HttpResponse("Done")
+
+
+def notificationbroadcast(request):
+    notification=BroadcastNotification.objects.all()
+    context={"notification":notification}
+    return render(request,"notification.html",context)

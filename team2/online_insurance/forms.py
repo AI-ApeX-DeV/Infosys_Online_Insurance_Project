@@ -1,13 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import AgentAvailability,Appointment,Policy
+from .models import AgentAvailability,Appointment,Policy,Feedback
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from datetime import datetime
 from django.contrib import messages
-
 
 
 uri = "mongodb+srv://syed:BMmkQtHjyzPLRyYE@cluster0.yb37t1h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -22,7 +21,6 @@ class CustomRegistrationForm(forms.Form):
     username = forms.CharField(label='Username', max_length=150)
     email = forms.EmailField(label='Email')
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
-    
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -54,7 +52,7 @@ class AgentRequest(forms.ModelForm):
             'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control', 'required': True}),
             'latitude': forms.NumberInput(attrs={'class': 'form-control', 'required': True}),
             'longitude': forms.NumberInput(attrs={'class': 'form-control', 'required': True}),
-            'time_slots': forms.CheckboxSelectMultiple,
+            'time_slots': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
         }
 
 
@@ -125,6 +123,13 @@ class NewPolicy(forms.ModelForm):
     class Meta:
         model = Policy
         fields = '__all__'
+
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['name', 'email', 'contact', 'feedback']
         
 
 # from django import forms

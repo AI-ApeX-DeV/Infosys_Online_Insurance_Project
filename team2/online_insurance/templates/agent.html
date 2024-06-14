@@ -164,6 +164,12 @@
                         {{ form.longitude }}
                     </div>
                 </div>
+                <div>
+                    {{ form.time_slots.label_tag }} 
+                    <div class="input-box">
+                        {{ form.time_slots }}
+                    </div>
+                </div>
                 <input type="submit" class="btn" value="Submit" />
             </form>
         </div>
@@ -201,3 +207,4 @@
 </body>
 </html>
 {% endblock %}
+

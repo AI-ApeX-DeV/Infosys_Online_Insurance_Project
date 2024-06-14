@@ -88,24 +88,16 @@
         <table>
             <thead>
                 <tr>
-                    <th>Policy Name</th>
-                    <th>Policy Type</th>
-                    <th>Policy Number</th>
-                    <th>Price</th>
-                    <th>Renewal Date</th>
-                    <th>Contact Info</th>
-
+                    <th>Messages</th>
+                    <th>Broadcast On</th>
+                    
                 </tr>
             </thead>
             <tbody>
-                {% for i in policy %}
+                {% for i in notification %}
                 <tr>
-                    <td>{{ i.policy_name }}</td>
-                    <td>{{ i.PolicyType }}</td>
-                    <td>{{ i.Policy_Number }}</td>
-                    <td>{{ i.price }}</td>
-                    <td>{{ i.RenewalDate }}</td>
-                    <td>{{ i.Contact_Info }}</td>
+                    <td>{{ i.message }}</td>
+                    <td>{{ i.broadcast_on }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

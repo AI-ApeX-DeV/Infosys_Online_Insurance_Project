@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     'channels',
     'django_celery_beat',
     'django_celery_results',
-    'notifications',
     'widget_tweaks',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'team2.middleware.LoginRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'team2.urls'
@@ -73,7 +74,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'online_insurance.custom_context_processors.notifications',
             ],
         },
     },
@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Kolkata'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -141,34 +141,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER ='atharvapatange07@gmail.com'  # e.g., 'your-gmail-address@gmail.com'
-EMAIL_HOST_PASSWORD ='jxzvefyzgfhrufxg'  # Use the App Password
+EMAIL_HOST_PASSWORD ='jyuaqdukerzipxad'  # Use the App Password
 DEFAULT_FROM_EMAIL ='Atharva Patange <atharvapatange07@gmail.com>'  # e.g., 'Your Name <your-gmail-address@gmail.com>'
-
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
-}
-# CELERY SETTINGS
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SELERLIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Kolkata'
-
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-
-# settings.py
-import logging
-
-logging.basicConfig(level=logging.DEBUG)

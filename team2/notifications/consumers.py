@@ -4,14 +4,14 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 class NotificationConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_group_name = 'notification_%s' % self.room_name
-
+        self.room_group_name = f'notifications_{self.room_name}'
+        
         # Join room group
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
         )
-
+        
         await self.accept()
 
     async def disconnect(self, close_code):
@@ -21,23 +21,23 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
-    # Receive message from WebSocket
-    # async def receive(self, text_data):
-    #     text_data_json = json.loads(text_data)
-    #     message = text_data_json['message']
+    async def receive(self, text_data):
+        data = json.loads(text_data)
+        message = data['message']
+        
+        # Send message to room group
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                'type': 'notification_message',
+                'message': message
+            }
+        )
 
-    #     # Send message to room group
-    #     await self.channel_layer.group_send(
-    #         self.room_group_name,
-    #         {
-    #             'type': 'chat_message',
-    #             'message': message
-    #         }
-    #     )
-
-    # Receive message from room group
-    async def send_notification(self, event):
-        message = json.loads(event['message'])
-
+    async def notification_message(self, event):
+        message = event['message']
+        
         # Send message to WebSocket
-        await self.send(text_data=json.dumps(message))
+        await self.send(text_data=json.dumps({
+            'message': message
+        }))
