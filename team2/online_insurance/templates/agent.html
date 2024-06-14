@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Home | My Website{% endblock %}
+{% block title %}Agent Registration{% endblock %}
 
 {% block content %}
 {% load static %}
@@ -25,7 +25,6 @@
             background: url('https://content.backgroundsonline.com/images/sites/bgo/industry/insurance.png') no-repeat;
             background-size: cover;
             background-position: center;
-            /* overflow: hidden; */
         }
 
         .wrapper {
@@ -45,7 +44,6 @@
         .form-box {
             width: 100%;
             padding: -20px 0px -20px 0px;
-            
         }
 
         .form-box h2 {
@@ -54,17 +52,18 @@
             text-align: center;
             margin-bottom: 10px;
         }
+
         .form-control {
-    background-color: transparent;
-    border: 2px solid #2e2d2d;  /* Optional: Add border if needed */
-    color: #000;  /* Optional: Set text color */
-}
+            background-color: transparent;
+            border: 2px solid #2e2d2d;
+            color: #000;
+        }
+
         .input-box {
             position: relative;
             width: 100%;
             height: 50px;
             border-bottom: 2px solid #162938;
-           
         }
 
         .input-box label {
@@ -117,61 +116,95 @@
             <h2>Agent Availability</h2>
             <form method="POST" action="">
                 {% csrf_token %}
-                <div >
+                <div>
                     {{ form.agent.label_tag }} 
                     <div class="input-box">
                         {{ form.agent }}
-                     </div>
+                    </div>
                 </div>
-                <div >
+                <div>
                     {{ form.agent_phone.label_tag }}
-                    <div class="input-box" >
+                    <div class="input-box">
                         {{ form.agent_phone }}
                     </div>
                 </div>
-               
-                <div >
+                <div>
                     {{ form.agent_district.label_tag }} 
                     <div class="input-box">
                         {{ form.agent_district }}
-                   </div>
+                    </div>
                 </div>
-              
-                <div >
+                <div>
                     {{ form.status.label_tag }} 
                     <div class="input-box">
                         {{ form.status }}
                     </div>
                 </div>
-                <div class="">
+                <div>
                     {{ form.start_time.label_tag }} 
                     <div class="input-box">
                         {{ form.start_time }}
                     </div>
                 </div>
-                <div class="">
+                <div>
                     {{ form.end_time.label_tag }} 
                     <div class="input-box">
                         {{ form.end_time }}
                     </div>
                 </div>
-                <div >
+                <div>
                     {{ form.lattitude.label_tag }}
                     <div class="input-box">
-                         {{ form.lattitude }}
+                        {{ form.lattitude }}
                     </div>
                 </div>
-                <div >
+                <div>
                     {{ form.longitude.label_tag }} 
-                    <div class="input-box" >
-                       {{ form.longitude }}
+                    <div class="input-box">
+                        {{ form.longitude }}
+                    </div>
+                </div>
+                <div>
+                    {{ form.time_slots.label_tag }} 
+                    <div class="input-box">
+                        {{ form.time_slots }}
                     </div>
                 </div>
                 <input type="submit" class="btn" value="Submit" />
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const districtInput = document.querySelector('select[name="agent_district"]');
+            const latitudeInput = document.querySelector('input[name="lattitude"]');
+            const longitudeInput = document.querySelector('input[name="longitude"]');
+
+            districtInput.addEventListener('change', function () {
+                const district = districtInput.value;
+
+                if (district) {
+                    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${district}+Maharashtra+India`;
+
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.length > 0) {
+                                const { lat, lon } = data[0];
+                                latitudeInput.value = lat;
+                                longitudeInput.value = lon;
+                            } else {
+                                alert('Coordinates not found for this district.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching the coordinates:', error);
+                        });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
 {% endblock %}
+

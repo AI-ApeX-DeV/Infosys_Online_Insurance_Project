@@ -26,6 +26,9 @@ urlpatterns = [
     path('login/',views.user_login,name="login"),
     path('feedback/',views.feedback,name="feedback"),
     path("login/home/",views.home,name="home"),
+    path('login/password_reset_request', views.password_reset_request_view, name='password_reset_request'),
+    path('password_reset_verify_otp/', views.password_reset_verify_otp, name='password_reset_verify_otp'),
+    #path('error/', ErrorPageView.as_view(), name='error_page'),
     #path('agent/', views.set_availability, name="agent" ),
     #path('members/details/<int:id>', views.details, name='details'),
     #path('members/', views.members, name='members'),
@@ -37,8 +40,9 @@ urlpatterns = [
     path('logout/',views.user_login, name='logout'),
     path("policy/",views.PolicyUpdate,name="policy"),
     path("policy/details",views.details,name="details"),
-
-    
+    path("notifications/",views.notificationbroadcast,name="notifications"),
+    path('login/home/login/',views.user_login),
+    path('notifications/count/', views.notification_count, name='notification_count'),
     ]
     
 

@@ -12,8 +12,8 @@
             background-color: #f8f9fa;
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
             height: 100vh;
             margin: 0;
             padding: 0;
@@ -24,8 +24,8 @@
             display: flex;
             align-items: center;
             justify-content: center; /* Center horizontally */
-            width: 100%;
-            max-width: 1200px;
+            width: 70%;
+            max-width: 900px;
         }
 
         /* Left side - Registration block */
@@ -33,16 +33,17 @@
             flex: 1;
             padding: 30px;
             max-width: 300px; /* Adjusted maximum width */
-            background-color: rgba(255, 255, 255, 0); /* Transparent background */
+            background-color: rgba(255, 255, 255, 0.8); /* Translucent background */
             border-radius: 5px;
             box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
-            border: 2px solid white; /* White border */
+            border: 1px solid white; /* White border */
+            position: relative; /* Relative position to control internal elements */
         }
 
         /* Heading */
         h2 {
             text-align: center;
-            color: #40e4f9;
+            color: #104148;
             margin-bottom: 20px;
         }
 
@@ -76,7 +77,7 @@
 
         /* Submit button */
         input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #0056b3;
             color: white;
             border: none;
             cursor: pointer;
@@ -85,7 +86,7 @@
         /* Right side - Background image */
         .background-image {
             flex: 1;
-            background-image: url('https://www.bhmpics.com/downloads/insurance-Wallpapers/24.insureance_web-2.jpg');
+            background-image: url('https://www.lionandmason.com/wp-content/uploads/2023/02/pexels-kindel-media-7688374.jpg.webp');
             background-size: cover;
             background-position: right;
             height: 100vh;
@@ -100,14 +101,35 @@
         /* Login link */
         .login-link {
             text-align: center;
-            color: #f8f6f6;
+            color: #100705;
             margin-top: 20px;
         }
 
         .login-link a {
-            color: #33dbf9;
+            color: #1292a5;
             text-decoration: none;
             font-weight: bold;
+        }
+
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0; /* Margin to separate from other elements */
+            text-align: center; /* Center align messages */
+        }
+
+        .messages li {
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .messages li.error {
+            background-color: #1292a5;
+        }
+
+        .messages li.success {
+            background-color: #4CAF50;
         }
     </style>
 </head>
@@ -115,11 +137,20 @@
     <div class="background-image"></div>
     <div class="container">
         <div class="registration-block">
-            <h2>Register for Insurance</h2>
+            <center>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </center>
+            <h2>Register</h2>
             <form method="POST">
                 {% csrf_token %}
                 <input type="text" name="username" placeholder="Username" required>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Email" required>            
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="submit" value="Register">
             </form>
